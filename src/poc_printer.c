@@ -11,11 +11,18 @@
 
 // Font configuration
 #define DEFAULT_FONT_NAME "Noto Sans Malayalam"
+#define DEFAULT_FONT_SIZE 24
+#define DEFAULT_FONT_WEIGHT "Bold"  // Change to "Bold", "Thin", "Light", etc. as needed
 
 // Printer configuration
 #define PRINTER_WIDTH_MM 48  // Effective printing width from KP628E manual (48mm)
 #define PRINTER_WIDTH_DOTS 384  // Standard thermal printer width in dots (48mm * 8 dots/mm = 384 dots)
 #define DPI 203              // Dots per inch from KP628E manual (8 dots/mm = 203 DPI)
+
+// Padding configuration
+#define TOP_PADDING 0       // Top padding in pixels
+#define BOTTOM_PADDING 140    // Bottom padding in pixels
+#define SIDE_MARGIN 10       // Side margin in pixels
 
 // ESC/POS Commands
 #define ESC_CMD '@'          // Initialize printer
@@ -25,11 +32,13 @@
 #define GS_CMD_CUT 'V'       // Paper cut
 
 // Function declarations
+int calculate_text_height(const char *text, int width);
 void render_text_to_surface(cairo_surface_t *surface, const char *text, int x, int y);
 unsigned char* convert_to_1bit_bmp(cairo_surface_t *surface, int *width, int *height, int *size);
 unsigned char* create_escpos_raster_command(unsigned char *bitmap_data, int width, int height, int *cmd_size);
 int send_to_usb_printer(unsigned char *data, int size, const char *device_path);
 void save_to_file(unsigned char *data, int size);
+void save_to_png(cairo_surface_t *surface, const char *filename);
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -41,16 +50,21 @@ int main(int argc, char *argv[]) {
     const char *text = argv[1];
     const char *printer_device = (argc > 2) ? argv[2] : NULL;  // Optional printer device path
     
-    // Create a Cairo surface
-    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, PRINTER_WIDTH_DOTS, 800); // Increased height to accommodate larger font
+    // First, calculate the required height for the text
+    int text_width = PRINTER_WIDTH_DOTS - (2 * SIDE_MARGIN); // Subtract margins (SIDE_MARGIN on each side)
+    int text_height = calculate_text_height(text, text_width);
+    int surface_height = text_height + TOP_PADDING + BOTTOM_PADDING; // Add top and bottom padding
+    
+    // Create a Cairo surface with the calculated height
+    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, PRINTER_WIDTH_DOTS, surface_height);
     cairo_t *cr = cairo_create(surface);
     
     // Fill background as white
     cairo_set_source_rgb(cr, 1, 1, 1);  // White background
     cairo_paint(cr);
     
-    // Set font and render text
-    render_text_to_surface(surface, text, 10, 20);
+    // Set font and render text at the specified top padding position
+    render_text_to_surface(surface, text, SIDE_MARGIN, TOP_PADDING);
     
     // Convert to 1-bit bitmap
     int width, height, bmp_size;
@@ -76,6 +90,9 @@ int main(int argc, char *argv[]) {
         printf("To send to printer directly: %s \"text\" /dev/usb/lp0\n", argv[0]);
     }
     
+    // Save a PNG preview for visual verification
+    save_to_png(surface, "preview.png");
+    
     // Cleanup
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
@@ -83,7 +100,37 @@ int main(int argc, char *argv[]) {
     free(escpos_cmd);
     
     printf("Processed text: %s\n", text);
+    printf("Preview saved to preview.png\n");
     return 0;
+}
+
+// Function to calculate the height required for the text
+int calculate_text_height(const char *text, int width) {
+    cairo_surface_t *dummy_surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, 100);
+    cairo_t *cr = cairo_create(dummy_surface);
+    
+    PangoLayout *layout = pango_cairo_create_layout(cr);
+    
+    // Create font string with configurable weight and size
+    char font_string[256];
+    snprintf(font_string, sizeof(font_string), "%s %s %d", DEFAULT_FONT_NAME, DEFAULT_FONT_WEIGHT, DEFAULT_FONT_SIZE);
+    PangoFontDescription *font_desc = pango_font_description_from_string(font_string);
+    
+    pango_layout_set_font_description(layout, font_desc);
+    pango_layout_set_text(layout, text, -1);
+    pango_layout_set_width(layout, width * PANGO_SCALE);
+    pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
+    
+    int text_width, text_height;
+    pango_layout_get_pixel_size(layout, &text_width, &text_height);
+    
+    // Cleanup
+    pango_font_description_free(font_desc);
+    g_object_unref(layout);
+    cairo_destroy(cr);
+    cairo_surface_destroy(dummy_surface);
+    
+    return text_height;
 }
 
 void render_text_to_surface(cairo_surface_t *surface, const char *text, int x, int y) {
@@ -91,7 +138,11 @@ void render_text_to_surface(cairo_surface_t *surface, const char *text, int x, i
     
     // Set up Pango for text rendering
     PangoLayout *layout = pango_cairo_create_layout(cr);
-    PangoFontDescription *font_desc = pango_font_description_from_string(DEFAULT_FONT_NAME " Bold 32"); // Increased size to 32 and made bold
+    
+    // Create font string with configurable weight and size
+    char font_string[256];
+    snprintf(font_string, sizeof(font_string), "%s %s %d", DEFAULT_FONT_NAME, DEFAULT_FONT_WEIGHT, DEFAULT_FONT_SIZE);
+    PangoFontDescription *font_desc = pango_font_description_from_string(font_string);
     
     pango_layout_set_font_description(layout, font_desc);
     pango_layout_set_text(layout, text, -1);
@@ -246,5 +297,14 @@ void save_to_file(unsigned char *data, int size) {
         printf("ESC/POS output written to output.bin\n");
     } else {
         printf("Could not write output.bin\n");
+    }
+}
+
+void save_to_png(cairo_surface_t *surface, const char *filename) {
+    cairo_status_t status = cairo_surface_write_to_png(surface, filename);
+    if (status == CAIRO_STATUS_SUCCESS) {
+        printf("PNG preview saved to %s\n", filename);
+    } else {
+        printf("Error saving PNG: %s\n", cairo_status_to_string(status));
     }
 }

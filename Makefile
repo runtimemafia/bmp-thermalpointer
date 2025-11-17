@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags pangocairo`
-LIBS = `pkg-config --libs pangocairo`
+CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags pangocairo cairo`
+LIBS = `pkg-config --libs pangocairo cairo`
 
 # Check if we're cross-compiling for Raspberry Pi or building locally
 UNAME_S := $(shell uname -s)
