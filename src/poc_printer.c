@@ -12,7 +12,7 @@
 // Font configuration
 #define DEFAULT_FONT_NAME "Noto Sans Malayalam"
 #define DEFAULT_FONT_SIZE 24
-#define DEFAULT_FONT_WEIGHT "Bold"  // Change to "Bold", "Thin", "Light", etc. as needed
+#define DEFAULT_FONT_WEIGHT "Light"  // Change to "Bold", "Thin", "Light", etc. as needed
 
 // Printer configuration
 #define PRINTER_WIDTH_MM 48  // Effective printing width from KP628E manual (48mm)
