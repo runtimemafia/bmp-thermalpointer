@@ -1,5 +1,30 @@
 {
-  "text": "ഹായ്! ഇത് ഒരു പരീക്ഷണ പ്രിന്റ് ആണ്",
-  "font": "Manjari Regular",
-  "size": 16
+  "blocks": [
+    {
+      "type": "text",
+      "content": "Hello world"
+    },
+    {
+      "type": "text",
+      "content": "ഹായ്! ഇത് ഒരു പരീക്ഷണ പ്രിന്റ് ആണ്"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "text",
+      "content": "ഹായ്! ഇത് ഒരു പരീക്ഷണ പ്രിന്റ് ആണ്"
+    },
+    {
+      "type": "qr",
+      "data": "https://google.com"
+    },
+    {
+      "type": "text",
+      "content": "ഹായ്! ഇത് ഒരു പരീക്ഷണ പ്രിന്റ് ആണ്"
+    }
+  ]
 }

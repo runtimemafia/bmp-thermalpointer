@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags pangocairo cairo`
-LIBS = `pkg-config --libs pangocairo cairo`
+CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags pangocairo cairo libqrencode`
+LIBS = `pkg-config --libs pangocairo cairo libqrencode` -ljson-c
 
 # Check if we're cross-compiling for Raspberry Pi or building locally
 UNAME_S := $(shell uname -s)
@@ -27,6 +27,6 @@ install-deps:
 	sudo apt update
 	sudo apt install -y build-essential pkg-config \
 		libcairo2-dev libpango1.0-dev libpangocairo-1.0-0 \
-		fonts-manjari
+		libqrencode-dev libcjson-dev fonts-manjari
 
 .PHONY: all clean install-deps
