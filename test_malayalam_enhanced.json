@@ -2,7 +2,7 @@
   "blocks": [
     {
       "type": "text",
-      "content": "അവസരോചിതമായ ഒരു തീരുമാനമെടുക്കാൻ സാധിക്കുന്ന ഒരു ഘട്ടമായിരുന്നു അത്",
+      "content": "അവസ രോചിതമായരു തീരു മാനമെടു ക്കാൻ സാധി ക്കുന്ന ഒരു ഘട്ടമാ യിരുന്നു അത്",
       "font_size": 12,
       "font_weight": "Bold",
       "alignment": "center",
@@ -14,8 +14,8 @@
     },
     {
       "type": "text",
-      "content": "മലയാളത്തിലുള്ള ഒരു നേരത്തെഴുത്ത്",
-      "alignment": "left",
+      "content": "bookmypuja.app",
+      "alignment": "center",
       "font_size": 20
     },
     {
@@ -30,11 +30,10 @@
     {
       "type": "text",
       "content": "വലത് വശത്ത് നിന്നും ഒരു അക്ഷരമാല",
-      "alignment": "right",
+      "alignment": "center",
       "font_size": 22,
       "font_weight": "Bold",
-      "left_padding": 10,
-      "right_padding": 10
+      "right_padding": 20
     },
     {
       "type": "qr",
@@ -61,14 +60,15 @@
       "font_size": 18
     },
     {
-      "type": "qr",
-      "data": "https://github.com",
-      "size": 4,
-      "x_pos": -20
+      "type": "hr"
     },
     {
-      "type": "feed",
-      "lines": 2
+      "type": "qr",
+      "data": "https://github.com",
+      "size": 5
+    },
+    {
+      "type": "hr"
     },
     {
       "type": "text",
@@ -76,7 +76,8 @@
       "alignment": "center",
       "font_size": 24,
       "font_weight": "Bold",
-      "top_padding": 10
+      "top_padding": 10,
+      "bottom_padding": 10
     }
   ]
 }

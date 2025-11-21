@@ -1,0 +1,24 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "content": "This is a left-aligned text",
+      "alignment": "left"
+    },
+    {
+      "type": "text",
+      "content": "bookmypuja.app",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "This is a right-aligned text",
+      "alignment": "right"
+    },
+    {
+      "type": "text",
+      "content": "This is another centered text",
+      "alignment": "center"
+    }
+  ]
+}

@@ -26,6 +26,12 @@
     },
     {
       "type": "text",
+      "content": "bookmypuja.app",
+      "alignment": "center",
+      "font_size": 20
+    },
+    {
+      "type": "text",
       "content": "This is right-aligned text with padding.",
       "alignment": "right",
       "left_padding": 5,

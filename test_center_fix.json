@@ -1,0 +1,35 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "content": "Top Line Left",
+      "alignment": "left"
+    },
+    {
+      "type": "text",
+      "content": "Centered English Text",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "bookmypuja.app",
+      "alignment": "center",
+      "font_size": 28
+    },
+    {
+      "type": "text",
+      "content": "Right Aligned",
+      "alignment": "right"
+    },
+    {
+      "type": "text",
+      "content": "Another Centered Line",
+      "alignment": "center"
+    },
+    {
+      "type": "qr",
+      "data": "https://bookmypuja.app",
+      "size": 4
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "content": "bookmypuja.app",
+      "alignment": "center",
+      "font_size": 20
+    }
+  ]
+}

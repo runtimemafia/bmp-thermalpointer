@@ -1,0 +1,14 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "content": "മലയാളം ടെസ്റ്റ് ടെക്സ്റ്റ്",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "bookmypuja.app",
+      "alignment": "center"
+    }
+  ]
+}
