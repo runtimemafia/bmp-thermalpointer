@@ -23,7 +23,7 @@
 
 // Padding configuration
 #define TOP_PADDING 0       // Top padding in pixels
-#define BOTTOM_PADDING 140    // Bottom padding in pixels
+#define BOTTOM_PADDING 0    // Bottom padding in pixels
 #define SIDE_MARGIN 10       // Side margin in pixels
 
 // ESC/POS Commands
@@ -32,6 +32,267 @@
 #define GS_SUBCMD '0'        // Raster format 0
 #define ESC_CMD_FEED 'd'     // Feed n lines
 #define GS_CMD_CUT 'V'       // Paper cut
+
+// Structure to hold text formatting options
+typedef struct {
+    int font_size;
+    char font_weight[32];
+    char alignment[16];  // "left", "center", "right"
+    int top_padding;
+    int bottom_padding;
+    int left_padding;
+    int right_padding;
+} TextFormat;
+
+// Structure to hold QR formatting options
+typedef struct {
+    int size;
+    int x_pos;  // 0=center, negative=left, positive=right margin
+    int y_pos;
+} QRFormat;
+
+// Function to create a QR code Cairo surface
+cairo_surface_t* create_qr_surface(const char *data, int scale) {
+    // Encode the data into a QR code
+    QRcode *qrcode = QRcode_encodeString(data, 0, QR_ECLEVEL_L, QR_MODE_8, 1);
+    if (!qrcode) {
+        printf("Error: Could not encode QR code\n");
+        return NULL;
+    }
+
+    int qr_size = qrcode->width;
+    int surface_size = qr_size * scale;
+    
+    // Create a Cairo surface for the QR code
+    cairo_surface_t *qr_surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, surface_size, surface_size);
+    cairo_t *qr_cr = cairo_create(qr_surface);
+    
+    // Fill background as white
+    cairo_set_source_rgb(qr_cr, 1, 1, 1);
+    cairo_paint(qr_cr);
+    
+    // Set black color for QR code
+    cairo_set_source_rgb(qr_cr, 0, 0, 0);
+    
+    // Draw the QR code
+    for (int y = 0; y < qr_size; y++) {
+        for (int x = 0; x < qr_size; x++) {
+            if (qrcode->data[y * qr_size + x] & 0x01) {
+                // Draw a square for each QR code pixel
+                cairo_rectangle(qr_cr, x * scale, y * scale, scale, scale);
+                cairo_fill(qr_cr);
+            }
+        }
+    }
+    
+    // Cleanup
+    QRcode_free(qrcode);
+    cairo_destroy(qr_cr);
+    
+    return qr_surface;
+}
+
+// Function to initialize default text format
+void init_default_text_format(TextFormat *format) {
+    format->font_size = DEFAULT_FONT_SIZE;
+    strcpy(format->font_weight, DEFAULT_FONT_WEIGHT);
+    strcpy(format->alignment, "left");
+    format->top_padding = 0;
+    format->bottom_padding = 0;
+    format->left_padding = 0;
+    format->right_padding = 0;
+}
+
+// Function to initialize default QR format
+void init_default_qr_format(QRFormat *format) {
+    format->size = 3;  // default scale
+    format->x_pos = 0; // center
+    format->y_pos = 0;
+}
+
+// Function to initialize default text format
+void init_default_text_format_from_json(json_object *block, TextFormat *format) {
+    init_default_text_format(format);
+    
+    // Override defaults with JSON values if present
+    json_object *font_size, *font_weight, *alignment, *top_padding, *bottom_padding, *left_padding, *right_padding;
+    
+    if (json_object_object_get_ex(block, "font_size", &font_size) && json_object_is_type(font_size, json_type_int)) {
+        format->font_size = json_object_get_int(font_size);
+    }
+    
+    if (json_object_object_get_ex(block, "font_weight", &font_weight) && json_object_is_type(font_weight, json_type_string)) {
+        const char *weight_str = json_object_get_string(font_weight);
+        strncpy(format->font_weight, weight_str, sizeof(format->font_weight) - 1);
+        format->font_weight[sizeof(format->font_weight) - 1] = '\0';
+    }
+    
+    if (json_object_object_get_ex(block, "alignment", &alignment) && json_object_is_type(alignment, json_type_string)) {
+        const char *align_str = json_object_get_string(alignment);
+        strncpy(format->alignment, align_str, sizeof(format->alignment) - 1);
+        format->alignment[sizeof(format->alignment) - 1] = '\0';
+    }
+    
+    if (json_object_object_get_ex(block, "top_padding", &top_padding) && json_object_is_type(top_padding, json_type_int)) {
+        format->top_padding = json_object_get_int(top_padding);
+    }
+    
+    if (json_object_object_get_ex(block, "bottom_padding", &bottom_padding) && json_object_is_type(bottom_padding, json_type_int)) {
+        format->bottom_padding = json_object_get_int(bottom_padding);
+    }
+    
+    if (json_object_object_get_ex(block, "left_padding", &left_padding) && json_object_is_type(left_padding, json_type_int)) {
+        format->left_padding = json_object_get_int(left_padding);
+    }
+    
+    if (json_object_object_get_ex(block, "right_padding", &right_padding) && json_object_is_type(right_padding, json_type_int)) {
+        format->right_padding = json_object_get_int(right_padding);
+    }
+}
+
+// Function to initialize default QR format from JSON
+void init_default_qr_format_from_json(json_object *block, QRFormat *format) {
+    init_default_qr_format(format);
+    
+    // Override defaults with JSON values if present
+    json_object *size, *x_pos, *y_pos;
+    
+    if (json_object_object_get_ex(block, "size", &size) && json_object_is_type(size, json_type_int)) {
+        format->size = json_object_get_int(size);
+    }
+    
+    if (json_object_object_get_ex(block, "x_pos", &x_pos) && json_object_is_type(x_pos, json_type_int)) {
+        format->x_pos = json_object_get_int(x_pos);
+    }
+    
+    if (json_object_object_get_ex(block, "y_pos", &y_pos) && json_object_is_type(y_pos, json_type_int)) {
+        format->y_pos = json_object_get_int(y_pos);
+    }
+}
+
+// Function to calculate the height required for the text with custom format
+int calculate_text_height_with_format(const char *text, int width, TextFormat *format) {
+    cairo_surface_t *dummy_surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, 100);
+    cairo_t *cr = cairo_create(dummy_surface);
+
+    PangoLayout *layout = pango_cairo_create_layout(cr);
+
+    // Create font string with configurable weight and size from format
+    char font_string[256];
+    snprintf(font_string, sizeof(font_string), "%s %s %d", DEFAULT_FONT_NAME, format->font_weight, format->font_size);
+    PangoFontDescription *font_desc = pango_font_description_from_string(font_string);
+
+    pango_layout_set_font_description(layout, font_desc);
+    pango_layout_set_text(layout, text, -1);
+    
+    // Calculate available width for text (full width minus margins and padding)
+    int text_width = width - format->left_padding - format->right_padding;
+    pango_layout_set_width(layout, text_width * PANGO_SCALE);
+    pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
+
+    int layout_width, layout_height;
+    pango_layout_get_pixel_size(layout, &layout_width, &layout_height);
+
+    // Calculate total height including padding
+    int total_height = layout_height + format->top_padding + format->bottom_padding;
+
+    // Cleanup
+    pango_font_description_free(font_desc);
+    g_object_unref(layout);
+    cairo_destroy(cr);
+    cairo_surface_destroy(dummy_surface);
+
+    return total_height;
+}
+
+// Enhanced function to render text with formatting options
+void render_text_to_surface_with_format(cairo_surface_t *surface, const char *text, int base_x, int base_y, TextFormat *format) {
+    cairo_t *cr = cairo_create(surface);
+
+    // Set up Pango for text rendering
+    PangoLayout *layout = pango_cairo_create_layout(cr);
+
+    // Create font string with configurable weight and size from format
+    char font_string[256];
+    snprintf(font_string, sizeof(font_string), "%s %s %d", DEFAULT_FONT_NAME, format->font_weight, format->font_size);
+    PangoFontDescription *font_desc = pango_font_description_from_string(font_string);
+
+    pango_layout_set_font_description(layout, font_desc);
+    pango_layout_set_text(layout, text, -1);
+
+    // Calculate available width for text (full width minus margins and padding)
+    int text_width = PRINTER_WIDTH_DOTS - (2 * base_x) - format->left_padding - format->right_padding;
+    pango_layout_set_width(layout, text_width * PANGO_SCALE);
+    pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
+
+    // Set alignment
+    PangoAlignment alignment = PANGO_ALIGN_LEFT;
+    if (strcmp(format->alignment, "center") == 0) {
+        alignment = PANGO_ALIGN_CENTER;
+    } else if (strcmp(format->alignment, "right") == 0) {
+        alignment = PANGO_ALIGN_RIGHT;
+    }
+    pango_layout_set_alignment(layout, alignment);
+
+    // Set color to black
+    cairo_set_source_rgb(cr, 0, 0, 0);
+
+    // Calculate text position with alignment and padding
+    int pos_x = base_x + format->left_padding;
+    if (strcmp(format->alignment, "center") == 0) {
+        int layout_width, layout_height;
+        pango_layout_get_pixel_size(layout, &layout_width, &layout_height);
+        pos_x = (PRINTER_WIDTH_DOTS - layout_width) / 2;
+    } else if (strcmp(format->alignment, "right") == 0) {
+        int layout_width, layout_height;
+        pango_layout_get_pixel_size(layout, &layout_width, &layout_height);
+        pos_x = PRINTER_WIDTH_DOTS - layout_width - base_x - format->right_padding;
+    }
+
+    // Move to position with top padding
+    cairo_move_to(cr, pos_x, base_y + format->top_padding);
+
+    // Render the layout
+    pango_cairo_show_layout(cr, layout);
+
+    // Cleanup
+    pango_font_description_free(font_desc);
+    g_object_unref(layout);
+    cairo_destroy(cr);
+}
+
+// Enhanced function to render QR with formatting options
+void render_qr_to_surface_with_format(cairo_surface_t *surface, const char *qr_data, int base_y, QRFormat *format) {
+    cairo_surface_t *qr_surface = create_qr_surface(qr_data, format->size);
+
+    if (qr_surface) {
+        // Calculate QR width and position
+        int qr_width = cairo_image_surface_get_width(qr_surface);
+        int x_pos = 0;
+        
+        if (format->x_pos == 0) {
+            // Center the QR code horizontally
+            x_pos = (PRINTER_WIDTH_DOTS - qr_width) / 2;
+        } else if (format->x_pos < 0) {
+            // Left aligned with margin
+            x_pos = -format->x_pos;  // Use the absolute value as left margin
+        } else {
+            // Right aligned with margin
+            x_pos = PRINTER_WIDTH_DOTS - qr_width - format->x_pos;
+        }
+
+        int y_pos = base_y + format->y_pos;
+
+        cairo_t *cr = cairo_create(surface);
+        // Draw the QR code onto the main surface
+        cairo_set_source_surface(cr, qr_surface, x_pos, y_pos);
+        cairo_paint(cr);
+        cairo_destroy(cr);
+
+        // Cleanup QR surface
+        cairo_surface_destroy(qr_surface);
+    }
+}
 
 // Function declarations
 int calculate_text_height(const char *text, int width);
@@ -42,9 +303,96 @@ unsigned char* create_escpos_raster_command(unsigned char *bitmap_data, int widt
 int send_to_usb_printer(unsigned char *data, int size, const char *device_path);
 void save_to_file(unsigned char *data, int size);
 void save_to_png(cairo_surface_t *surface, const char *filename);
-cairo_surface_t* create_qr_surface(const char *data, int scale);
 int calculate_combined_height(const char *text, int text_width, int qr_width);
 void render_json_blocks(cairo_surface_t *surface, const char *json_str);
+
+// Function to calculate total height needed for all blocks
+int calculate_total_height(const char *json_str) {
+    json_object *json = json_tokener_parse(json_str);
+    if (!json) {
+        printf("Error parsing JSON in height calculation\n");
+        return 800; // fallback height
+    }
+
+    json_object *blocks;
+    if (!json_object_object_get_ex(json, "blocks", &blocks)) {
+        printf("Error: 'blocks' field not found in JSON\n");
+        json_object_put(json);
+        return 800; // fallback height
+    }
+    
+    if (!json_object_is_type(blocks, json_type_array)) {
+        printf("Error: 'blocks' is not an array\n");
+        json_object_put(json);
+        return 800; // fallback height
+    }
+
+    int current_y = TOP_PADDING; // Start from top padding
+    
+    int array_length = json_object_array_length(blocks);
+    for (int i = 0; i < array_length; i++) {
+        json_object *block = json_object_array_get_idx(blocks, i);
+        
+        json_object *type;
+        if (!json_object_object_get_ex(block, "type", &type) || 
+            !json_object_is_type(type, json_type_string)) {
+            printf("Error: Block type is not a string\n");
+            continue;
+        }
+
+        const char *type_str = json_object_get_string(type);
+        
+        if (strcmp(type_str, "text") == 0) {
+            json_object *content;
+            if (json_object_object_get_ex(block, "content", &content) && 
+                json_object_is_type(content, json_type_string)) {
+                const char *content_str = json_object_get_string(content);
+                
+                // Initialize text format from JSON
+                TextFormat format;
+                init_default_text_format_from_json(block, &format);
+                
+                // Calculate text height with format
+                int text_width = PRINTER_WIDTH_DOTS - (2 * SIDE_MARGIN);
+                int text_height = calculate_text_height_with_format(content_str, text_width, &format);
+                
+                current_y += text_height + 10; // Add some padding after text
+            }
+        }
+        else if (strcmp(type_str, "qr") == 0) {
+            json_object *qr_data;
+            
+            if (json_object_object_get_ex(block, "data", &qr_data) && 
+                json_object_is_type(qr_data, json_type_string)) {
+                // Initialize QR format from JSON
+                QRFormat format;
+                init_default_qr_format_from_json(block, &format);
+                
+                // Calculate the QR code height approximately
+                int qr_approx_width = 30 * format.size; // Based on scale
+                current_y += qr_approx_width + 10; // Add some padding after QR
+            }
+        }
+        else if (strcmp(type_str, "hr") == 0) {
+            current_y += 15; // Add space for horizontal rule
+        }
+        else if (strcmp(type_str, "feed") == 0) {
+            json_object *lines;
+            if (json_object_object_get_ex(block, "lines", &lines) && 
+                json_object_is_type(lines, json_type_int)) {
+                // For now, just add space equivalent to the number of lines
+                current_y += json_object_get_int(lines) * 20; // Approximate pixels per line
+            } else {
+                current_y += 20; // Default feed of one line
+            }
+        }
+    }
+    
+    json_object_put(json);
+    
+    // Add some bottom padding
+    return current_y + BOTTOM_PADDING;
+}
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -85,8 +433,11 @@ int main(int argc, char *argv[]) {
         printer_device = (argc > 2) ? argv[2] : NULL;
     }
     
-    // Create a base Cairo surface with some initial height (will be expanded later)
-    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, PRINTER_WIDTH_DOTS, 800);
+    // Calculate the total height needed for the content
+    int total_height = calculate_total_height(json_input);
+    
+    // Create a Cairo surface with the calculated height
+    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, PRINTER_WIDTH_DOTS, total_height);
     cairo_t *cr = cairo_create(surface);
     
     // Fill background as white
@@ -360,47 +711,6 @@ void save_to_png(cairo_surface_t *surface, const char *filename) {
     }
 }
 
-// Function to create a QR code Cairo surface
-cairo_surface_t* create_qr_surface(const char *data, int scale) {
-    // Encode the data into a QR code
-    QRcode *qrcode = QRcode_encodeString(data, 0, QR_ECLEVEL_L, QR_MODE_8, 1);
-    if (!qrcode) {
-        printf("Error: Could not encode QR code\n");
-        return NULL;
-    }
-
-    int qr_size = qrcode->width;
-    int surface_size = qr_size * scale;
-    
-    // Create a Cairo surface for the QR code
-    cairo_surface_t *qr_surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, surface_size, surface_size);
-    cairo_t *qr_cr = cairo_create(qr_surface);
-    
-    // Fill background as white
-    cairo_set_source_rgb(qr_cr, 1, 1, 1);
-    cairo_paint(qr_cr);
-    
-    // Set black color for QR code
-    cairo_set_source_rgb(qr_cr, 0, 0, 0);
-    
-    // Draw the QR code
-    for (int y = 0; y < qr_size; y++) {
-        for (int x = 0; x < qr_size; x++) {
-            if (qrcode->data[y * qr_size + x] & 0x01) {
-                // Draw a square for each QR code pixel
-                cairo_rectangle(qr_cr, x * scale, y * scale, scale, scale);
-                cairo_fill(qr_cr);
-            }
-        }
-    }
-    
-    // Cleanup
-    QRcode_free(qrcode);
-    cairo_destroy(qr_cr);
-    
-    return qr_surface;
-}
-
 // Function to calculate the height required for both text and QR code
 int calculate_combined_height(const char *text, int text_width, int qr_width) {
     int text_height = 0;
@@ -458,28 +768,36 @@ void render_json_blocks(cairo_surface_t *surface, const char *json_str) {
             if (json_object_object_get_ex(block, "content", &content) && 
                 json_object_is_type(content, json_type_string)) {
                 const char *content_str = json_object_get_string(content);
-                int text_width = PRINTER_WIDTH_DOTS - (2 * SIDE_MARGIN);
-                int text_height = calculate_text_height(content_str, text_width);
                 
-                render_text_to_surface(surface, content_str, SIDE_MARGIN, current_y);
+                // Initialize text format from JSON
+                TextFormat format;
+                init_default_text_format_from_json(block, &format);
+                
+                // Calculate text height with format
+                int text_width = PRINTER_WIDTH_DOTS - (2 * SIDE_MARGIN);
+                int text_height = calculate_text_height_with_format(content_str, text_width, &format);
+                
+                // Render text with format
+                render_text_to_surface_with_format(surface, content_str, SIDE_MARGIN, current_y, &format);
                 current_y += text_height + 10; // Add some padding after text
             }
         }
         else if (strcmp(type_str, "qr") == 0) {
-            json_object *qr_data, *size;
+            json_object *qr_data;
             
             if (json_object_object_get_ex(block, "data", &qr_data) && 
                 json_object_is_type(qr_data, json_type_string)) {
                 const char *qr_data_str = json_object_get_string(qr_data);
-                int scale_factor = 3; // Default scale
-                if (json_object_object_get_ex(block, "size", &size) && 
-                    json_object_is_type(size, json_type_int)) {
-                    scale_factor = json_object_get_int(size);
-                }
+                
+                // Initialize QR format from JSON
+                QRFormat format;
+                init_default_qr_format_from_json(block, &format);
+                
+                // Render QR with format
+                render_qr_to_surface_with_format(surface, qr_data_str, current_y, &format);
                 
                 // Calculate the QR code height approximately
-                int qr_approx_width = 30 * scale_factor; // Approximate based on QR code size
-                render_qr_to_surface(surface, qr_data_str, 0, current_y, scale_factor);
+                int qr_approx_width = 30 * format.size; // Based on scale
                 current_y += qr_approx_width + 10; // Add some padding after QR
             }
         }
