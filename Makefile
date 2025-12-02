@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags pangocairo cairo libqrencode`
+CFLAGS = -Wall -Wextra -O2 -I./include `pkg-config --cflags pangocairo cairo libqrencode`
 LIBS = `pkg-config --libs pangocairo cairo libqrencode` -ljson-c
 
 # Check if we're cross-compiling for Raspberry Pi or building locally
@@ -12,7 +12,14 @@ ifeq ($(UNAME_S),Linux)
 endif
 
 TARGET = poc_printer
-SOURCES = src/poc_printer.c
+SOURCES = src/main.c \
+          src/qr_utils.c \
+          src/text_utils.c \
+          src/bitmap_utils.c \
+          src/escpos_utils.c \
+          src/printer_comm.c \
+          src/json_utils.c \
+          src/image_utils.c
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(TARGET)
@@ -21,12 +28,12 @@ $(TARGET): $(SOURCES)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES) $(LIBS)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) $(OBJECTS)
 
 install-deps:
 	sudo apt update
 	sudo apt install -y build-essential pkg-config \
 		libcairo2-dev libpango1.0-dev libpangocairo-1.0-0 \
-		libqrencode-dev libcjson-dev fonts-manjari
+		libqrencode-dev libcjson-dev libpng-dev fonts-manjari
 
 .PHONY: all clean install-deps

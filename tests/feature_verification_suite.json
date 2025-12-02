@@ -1,0 +1,602 @@
+{
+  "test_name": "Thermal Printer Feature Verification Suite",
+  "description": "Comprehensive test suite to validate all features of the thermal printer with English and Malayalam text",
+  "version": "1.0",
+  "date": "2025-12-02",
+  "blocks": [
+    {
+      "type": "text",
+      "content": "THERMAL PRINTER FEATURE VERIFICATION SUITE",
+      "font_size": 36,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "Comprehensive Test Report - English Language Support",
+      "font_size": 20,
+      "font_weight": "Light",
+      "alignment": "center"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 1: TEXT ALIGNMENT VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "LEFT ALIGNMENT TEST - This line demonstrates left alignment with standard formatting. The text should be positioned against the left margin of the print area.",
+      "alignment": "left"
+    },
+    {
+      "type": "text",
+      "content": "CENTER ALIGNMENT TEST - This line demonstrates center alignment with standard formatting. The text should be positioned at the horizontal center of the print area.",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "RIGHT ALIGNMENT TEST - This line demonstrates right alignment with standard formatting. The text should be positioned against the right margin of the print area.",
+      "alignment": "right"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 2: FONT SIZE VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "SMALL FONT SIZE TEST (12px) - This line demonstrates a smaller font size for detailed information.",
+      "font_size": 12
+    },
+    {
+      "type": "text",
+      "content": "DEFAULT FONT SIZE TEST (24px) - This line demonstrates the default font size for standard text.",
+      "font_size": 24
+    },
+    {
+      "type": "text",
+      "content": "LARGE FONT SIZE TEST (32px) - This line demonstrates a larger font size for emphasis and titles.",
+      "font_size": 32
+    },
+    {
+      "type": "text",
+      "content": "EXTRA LARGE FONT SIZE TEST (48px) - This line demonstrates an extra large font size for maximum visibility.",
+      "font_size": 48
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 3: FONT WEIGHT VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "LIGHT FONT WEIGHT TEST - This line demonstrates light font weight. The characters should appear with reduced thickness.",
+      "font_weight": "Light"
+    },
+    {
+      "type": "text",
+      "content": "THIN FONT WEIGHT TEST - This line demonstrates thin font weight. The characters should appear with the minimum thickness.",
+      "font_weight": "Thin"
+    },
+    {
+      "type": "text",
+      "content": "DEFAULT FONT WEIGHT TEST - This line demonstrates the default font weight. The characters should appear with standard thickness.",
+      "font_weight": "Light"
+    },
+    {
+      "type": "text",
+      "content": "BOLD FONT WEIGHT TEST - This line demonstrates bold font weight. The characters should appear with increased thickness and emphasis.",
+      "font_weight": "Bold"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 4: PADDING VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "NORMAL PADDING - This text has standard default padding settings.",
+      "top_padding": 0,
+      "bottom_padding": 0,
+      "left_padding": 0,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "TOP PADDING TEST - This text has 20px top padding applied. There should be extra space above this text.",
+      "top_padding": 20,
+      "bottom_padding": 0,
+      "left_padding": 0,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "BOTTOM PADDING TEST - This text has 20px bottom padding applied. There should be extra space below this text.",
+      "top_padding": 0,
+      "bottom_padding": 20,
+      "left_padding": 0,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "LEFT PADDING TEST - This text has 20px left padding applied. The text should be indented to the right.",
+      "top_padding": 0,
+      "bottom_padding": 0,
+      "left_padding": 20,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "RIGHT PADDING TEST - This text has 20px right padding applied. The text should be shifted left from the right margin.",
+      "top_padding": 0,
+      "bottom_padding": 0,
+      "left_padding": 0,
+      "right_padding": 20
+    },
+    {
+      "type": "text",
+      "content": "ALL PADDING COMBINED - This text has 15px padding on all sides. There should be equal spacing on all sides of this text.",
+      "top_padding": 15,
+      "bottom_padding": 15,
+      "left_padding": 15,
+      "right_padding": 15
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 5: QR CODE VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "SMALL QR CODE (SIZE 2) - Testing QR code with size factor of 2",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/qr-test-small",
+      "size": 2
+    },
+    {
+      "type": "text",
+      "content": "MEDIUM QR CODE (SIZE 3) - Testing QR code with size factor of 3",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/qr-test-medium",
+      "size": 3
+    },
+    {
+      "type": "text",
+      "content": "LARGE QR CODE (SIZE 4) - Testing QR code with size factor of 4",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/qr-test-large",
+      "size": 4
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 6: QR CODE POSITIONING VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "LEFT ALIGNED QR CODE - This QR code should be positioned with a left margin of 30px",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/qr-position-left",
+      "size": 3,
+      "x_pos": -30
+    },
+    {
+      "type": "text",
+      "content": "RIGHT ALIGNED QR CODE - This QR code should be positioned with a right margin of 30px",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/qr-position-right",
+      "size": 3,
+      "x_pos": 30
+    },
+    {
+      "type": "text",
+      "content": "CENTERED QR CODE - This QR code should be centered on the page",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/qr-position-center",
+      "size": 3,
+      "x_pos": 0
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    },
+    {
+      "type": "text",
+      "content": "THERMAL PRINTER FEATURE VERIFICATION SUITE",
+      "font_size": 36,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "Comprehensive Test Report - Malayalam Language Support",
+      "font_size": 20,
+      "font_weight": "Light",
+      "alignment": "center"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "പരീക്ഷണ വിഭാഗം 1: ടെക്സ്റ്റ് നിരത്തൽ പരിശോധന",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "ഇടത് നിരത്തൽ പരിശോധന - ഇങ്ങനെ ഇടത് വശത്ത് നിരത്തിയ ടെക്സ്റ്റ് പ്രിന്റ് ഏരിയയുടെ ഇടത് മാർജിനിൽ നിർത്തണം.",
+      "alignment": "left"
+    },
+    {
+      "type": "text",
+      "content": "മധ്യ നിരത്തൽ പരിശോധന - ഇങ്ങനെ മധ്യത്തിൽ നിരത്തിയ ടെക്സ്റ്റ് പ്രിന്റ് ഏരിയയുടെ മധ്യത്തിൽ നിർത്തണം.",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "വലത് നിരത്തൽ പരിശോധന - ഇങ്ങനെ വലത് വശത്ത് നിരത്തിയ ടെക്സ്റ്റ് പ്രിന്റ് ഏരിയയുടെ വലത് മാർജിനിൽ നിർത്തണം.",
+      "alignment": "right"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "പരീക്ഷണ വിഭാഗം 2: ഫോണ്ട് സൈസ് പരിശോധന",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "ചെറിയ ഫോണ്ട് സൈസ് പരിശോധന (12px) - ഇത് ചെറിയ ഫോണ്ട് സൈസ് കാണിക്കുന്നു, വിശദ വിവരങ്ങൾക്കായി.",
+      "font_size": 12
+    },
+    {
+      "type": "text",
+      "content": "സ്റ്റാൻഡേർഡ് ഫോണ്ട് സൈസ് പരിശോധന (24px) - ഇത് സ്റ്റാൻഡേർഡ് ഫോണ്ട് സൈസ് കാണിക്കുന്നു, സാധാരണ ടെക്സ്റ്റിനായി.",
+      "font_size": 24
+    },
+    {
+      "type": "text",
+      "content": "വലിയ ഫോണ്ട് സൈസ് പരിശോധന (32px) - ഇത് വലിയ ഫോണ്ട് സൈസ് കാണിക്കുന്നു, ഊന്നൽ നൽകാനായി.",
+      "font_size": 32
+    },
+    {
+      "type": "text",
+      "content": "എക്സ്ട്രാ ലാർജ് ഫോണ്ട് സൈസ് പരിശോധന (48px) - ഇത് എക്സ്ട്രാ ലാർജ് ഫോണ്ട് സൈസ് കാണിക്കുന്നു, പരമാവധി കാഴ്ചയ്ക്കായി.",
+      "font_size": 48
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "പരീക്ഷണ വിഭാഗം 3: ഫോണ്ട് ഭാരം പരിശോധന",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "ലൈറ്റ് ഫോണ്ട് ഭാരം പരിശോധന - ഇത് ലൈറ്റ് ഫോണ്ട് ഭാരം കാണിക്കുന്നു. അക്ഷരങ്ങൾ കുറഞ്ഞ തിക്കണത ഉപയോഗിച്ച് കാണിക്കണം.",
+      "font_weight": "Light"
+    },
+    {
+      "type": "text",
+      "content": "തിന് ഫോണ്ട് ഭാരം പരിശോധന - ഇത് തിന് ഫോണ്ട് ഭാരം കാണിക്കുന്നു. അക്ഷരങ്ങൾ ഏറ്റവും കുറഞ്ഞ തിക്കണത ഉപയോഗിച്ച് കാണിക്കണം.",
+      "font_weight": "Thin"
+    },
+    {
+      "type": "text",
+      "content": "ബോൾഡ് ഫോണ്ട് ഭാരം പരിശോധന - ഇത് ബോൾഡ് ഫോണ്ട് ഭാരം കാണിക്കുന്നു. അക്ഷരങ്ങൾ കൂടുതൽ തിക്കണത ഉപയോഗിച്ച് കാണിക്കണം.",
+      "font_weight": "Bold"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "പരീക്ഷണ വിഭാഗം 4: പാഡിംഗ് പരിശോധന",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "സാധാരണ പാഡിംഗ് - ഈ ടെക്സ്റ്റിന് സ്റ്റാൻഡേർഡ് പാഡിംഗ് സെറ്റിംഗ്സ് ഉണ്ട്.",
+      "top_padding": 0,
+      "bottom_padding": 0,
+      "left_padding": 0,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "മുകളിൽ പാഡിംഗ് പരിശോധന - ഈ ടെക്സ്റ്റിന് 20px മുകളിൽ പാഡിംഗ് ഉണ്ട്. ഈ ടെക്സ്റ്റിന് മുകളിൽ അധിക സ്ഥലം ഉണ്ടായിരിക്കണം.",
+      "top_padding": 20,
+      "bottom_padding": 0,
+      "left_padding": 0,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "താഴെ പാഡിംഗ് പരിശോധന - ഈ ടെക്സ്റ്റിന് 20px താഴെ പാഡിംഗ് ഉണ്ട്. ഈ ടെക്സ്റ്റിന് താഴെ അധിക സ്ഥലം ഉണ്ടായിരിക്കണം.",
+      "top_padding": 0,
+      "bottom_padding": 20,
+      "left_padding": 0,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "ഇടത് പാഡിംഗ് പരിശോധന - ഈ ടെക്സ്റ്റിന് 20px ഇടത് പാഡിംഗ് ഉണ്ട്. ടെക്സ്റ്റ് വലത്തോട്ട് ഇൻഡെന്റ് ചെയ്യപ്പെടണം.",
+      "top_padding": 0,
+      "bottom_padding": 0,
+      "left_padding": 20,
+      "right_padding": 0
+    },
+    {
+      "type": "text",
+      "content": "വലത് പാഡിംഗ് പരിശോധന - ഈ ടെക്സ്റ്റിന് 20px വലത് പാഡിംഗ് ഉണ്ട്. ടെക്സ്റ്റ് വലത് മാർജിനിൽ നിന്ന് ഇടത്തോട്ട് ഷിഫ്റ്റ് ചെയ്യപ്പെടണം.",
+      "top_padding": 0,
+      "bottom_padding": 0,
+      "left_padding": 0,
+      "right_padding": 20
+    },
+    {
+      "type": "text",
+      "content": "എല്ലാ പാഡിംഗും കൂട്ടിച്ചേർത്തുള്ള പരിശോധന - ഈ ടെക്സ്റ്റിന് എല്ലാ വശത്തും 15px പാഡിംഗ് ഉണ്ട്. ഈ ടെക്സ്റ്റിന്റെ എല്ലാ വശത്തും സമാന സ്ഥലം ഉണ്ടായിരിക്കണം.",
+      "top_padding": 15,
+      "bottom_padding": 15,
+      "left_padding": 15,
+      "right_padding": 15
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "പരീക്ഷണ വിഭാഗം 5: QR കോഡ് പരിശോധന",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "ചെറിയ QR കോഡ് (സൈസ് 2) - സൈസ് ഘടകം 2 ഉപയോഗിച്ച് QR കോഡ് പരിശോധിക്കുക",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-qr-test-small",
+      "size": 2
+    },
+    {
+      "type": "text",
+      "content": "മിഡിയം QR കോഡ് (സൈസ് 3) - സൈസ് ഘടകം 3 ഉപയോഗിച്ച് QR കോഡ് പരിശോധിക്കുക",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-qr-test-medium",
+      "size": 3
+    },
+    {
+      "type": "text",
+      "content": "വലിയ QR കോഡ് (സൈസ് 4) - സൈസ് ഘടകം 4 ഉപയോഗിച്ച് QR കോഡ് പരിശോധിക്കുക",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-qr-test-large",
+      "size": 4
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "പരീക്ഷണ വിഭാഗം 6: QR കോഡ് സ്ഥാനം പരിശോധന",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "ഇടത്ത് നിരത്തിയ QR കോഡ് - ഈ QR കോഡ് 30px ഇടത് മാർജിൻ ഉപയോഗിച്ച് സ്ഥാപിച്ചിരിക്കണം",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-qr-position-left",
+      "size": 3,
+      "x_pos": -30
+    },
+    {
+      "type": "text",
+      "content": "വലത്ത് നിരത്തിയ QR കോഡ് - ഈ QR കോഡ് 30px വലത് മാർജിൻ ഉപയോഗിച്ച് സ്ഥാപിച്ചിരിക്കണം",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-qr-position-right",
+      "size": 3,
+      "x_pos": 30
+    },
+    {
+      "type": "text",
+      "content": "മധ്യത്തിൽ നിരത്തിയ QR കോഡ് - ഈ QR കോഡ് പേജിന്റെ മധ്യത്തിൽ സ്ഥാപിച്ചിരിക്കണം",
+      "font_size": 16
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-qr-position-center",
+      "size": 3,
+      "x_pos": 0
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    },
+    {
+      "type": "text",
+      "content": "TEST CATEGORY 7: MIXED SCRIPT VERIFICATION",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "This line contains English text with some മലയാളം പദങ്ങൾ mixed together to test multilingual support.",
+      "font_size": 20
+    },
+    {
+      "type": "text",
+      "content": "Another test with numbers: 12345 and അക്കങ്ങൾ: ൧൨൩൪ - Testing mixed numeral systems.",
+      "font_size": 18,
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "Testing different font properties with mixed script: ഇതൊരു ടെസ്റ്റ് ആണ്",
+      "font_size": 22,
+      "font_weight": "Bold",
+      "alignment": "right"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    },
+    {
+      "type": "text",
+      "content": "FINAL VERIFICATION",
+      "font_size": 28,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "All printer features have been successfully tested.",
+      "font_size": 18,
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "English and Malayalam support verified.",
+      "font_size": 18,
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "Test completed on: December 2, 2025",
+      "font_size": 16,
+      "alignment": "center"
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "content": "English Text Features Test",
+      "font_size": 28,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "text",
+      "content": "Left aligned text with default font size and weight",
+      "alignment": "left"
+    },
+    {
+      "type": "text",
+      "content": "Center aligned text with larger font size",
+      "font_size": 20,
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "Right aligned text with bold weight",
+      "font_weight": "Bold",
+      "alignment": "right"
+    },
+    {
+      "type": "text",
+      "content": "Light font weight text",
+      "font_weight": "Light"
+    },
+    {
+      "type": "text",
+      "content": "Thin font weight text",
+      "font_weight": "Thin"
+    },
+    {
+      "type": "text",
+      "content": "Custom padding example with top and bottom padding",
+      "top_padding": 20,
+      "bottom_padding": 20,
+      "left_padding": 10,
+      "right_padding": 10
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/english-test",
+      "size": 3
+    },
+    {
+      "type": "text",
+      "content": "QR code with custom positioning (left aligned)",
+      "font_size": 18
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/english-positioned",
+      "size": 2,
+      "x_pos": -20
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    },
+    {
+      "type": "text",
+      "content": "Malayalam Text Features Test",
+      "font_size": 28,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "text",
+      "content": "ഇടത് വശത്ത് നിരത്തിയ മലയാളം ടെക്സ്റ്റ് സ്റ്റാൻഡേർഡ് ഫോണ്ട് സൈസും ഭാരവും ഉപയോഗിച്ച്",
+      "alignment": "left"
+    },
+    {
+      "type": "text",
+      "content": "മധ്യത്തിൽ നിരത്തിയ വലിയ ഫോണ്ട് സൈസുള്ള മലയാളം ടെക്സ്റ്റ്",
+      "font_size": 20,
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "വലത് വശത്ത് നിരത്തിയ ബോൾഡ് ഭാരമുള്ള മലയാളം ടെക്സ്റ്റ്",
+      "font_weight": "Bold",
+      "alignment": "right"
+    },
+    {
+      "type": "text",
+      "content": "ലൈറ്റ് ഫോണ്ട് ഭാരമുള്ള ടെക്സ്റ്റ്",
+      "font_weight": "Light"
+    },
+    {
+      "type": "text",
+      "content": "തിന് ഫോണ്ട് ഭാരമുള്ള ടെക്സ്റ്റ്",
+      "font_weight": "Thin"
+    },
+    {
+      "type": "text",
+      "content": "ഇത് മലയാളത്തിൽ കസ്റ്റം പാഡിംഗ് ഉദാഹരണമാണ് മുകളിലും താഴെയും പാഡിംഗ് ഉള്ളത്",
+      "top_padding": 20,
+      "bottom_padding": 20,
+      "left_padding": 10,
+      "right_padding": 10
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-test",
+      "size": 4
+    },
+    {
+      "type": "text",
+      "content": "കസ്റ്റം പൊസിഷനിംഗുള്ള QR കോഡ് (വലത് വശത്ത് അടുക്കിയത്)",
+      "font_size": 18
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/malayalam-positioned",
+      "size": 2,
+      "x_pos": 20
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "text",
+      "content": "Mixed English and Malayalam Test",
+      "font_size": 24,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "text",
+      "content": "This line has English and മലയാളം ടെക്സ്റ്റ് in the same line",
+      "font_size": 20
+    },
+    {
+      "type": "text",
+      "content": "Another mixed line with numbers: 123 and അക്കങ്ങൾ: ൧൨൩",
+      "font_size": 18,
+      "alignment": "center"
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/mixed-test",
+      "size": 3
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    },
+    {
+      "type": "text",
+      "content": "Feature Compatibility Test",
+      "font_size": 32,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "text",
+      "content": "Testing multiple formatting options together:",
+      "font_size": 16,
+      "font_weight": "Bold"
+    },
+    {
+      "type": "text",
+      "content": "Large Bold Centered Text",
+      "font_size": 28,
+      "font_weight": "Bold",
+      "alignment": "center"
+    },
+    {
+      "type": "text",
+      "content": "Small Thin Right Aligned Text with Padding",
+      "font_size": 14,
+      "font_weight": "Thin",
+      "alignment": "right",
+      "top_padding": 10,
+      "bottom_padding": 10
+    },
+    {
+      "type": "qr",
+      "data": "https://example.com/comprehensive-test",
+      "size": 5,
+      "x_pos": 0
+    },
+    {
+      "type": "text",
+      "content": "End of comprehensive test",
+      "alignment": "center",
+      "font_size": 18,
+      "font_weight": "Light"
+    }
+  ]
+}
