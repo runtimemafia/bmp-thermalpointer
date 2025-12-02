@@ -1,0 +1,14 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "content": "Simple test",
+      "font_size": 24
+    },
+    {
+      "type": "text",
+      "content": "End of document",
+      "font_size": 18
+    }
+  ]
+}

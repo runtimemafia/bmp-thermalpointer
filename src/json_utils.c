@@ -68,7 +68,9 @@ int calculate_total_height(const char *json_str) {
                 int text_width = PRINTER_WIDTH_DOTS - (2 * SIDE_MARGIN);
                 int text_height = calculate_text_height_with_format(content_str, text_width, &format);
 
-                current_y += text_height + 10; // Add some padding after text
+                // Calculate padding based on format
+                int extra_padding = (format.bottom_padding == 0) ? 10 : 0;
+                current_y += text_height + extra_padding;
             }
         }
         else if (strcmp(type_str, "qr") == 0) {

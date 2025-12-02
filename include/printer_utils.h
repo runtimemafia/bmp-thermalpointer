@@ -26,7 +26,7 @@
 
 // Padding configuration
 #define TOP_PADDING 0       // Top padding in pixels
-#define BOTTOM_PADDING 140    // Bottom padding in pixels
+#define BOTTOM_PADDING 0     // Bottom padding in pixels
 #define SIDE_MARGIN 10       // Side margin in pixels
 
 // ESC/POS Commands
