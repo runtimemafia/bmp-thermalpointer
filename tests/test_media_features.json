@@ -174,7 +174,7 @@
             "path": "assets/parrot.png",
             "format": {
                 "scale": 1,
-                "x_pos": -1
+                "x_pos": 1
             }
         },
         {

@@ -1,0 +1,137 @@
+{
+    "blocks": [
+        {
+            "type": "text",
+            "content": "=== Table Font Test ===",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 32,
+                "bottom_padding": 20
+            }
+        },
+        {
+            "type": "text",
+            "content": "1. Default Table Font (Should be 18)",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "header": "Item",
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "header": "Price",
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    "Apple",
+                    "$1.00"
+                ],
+                [
+                    "Banana",
+                    "$0.50"
+                ]
+            ],
+            "format": {
+                "border": true,
+                "cell_padding": 5
+            }
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "2. Explicit Small Font (Size 14)",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "header": "Item",
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "header": "Price",
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    "Apple",
+                    "$1.00"
+                ],
+                [
+                    "Banana",
+                    "$0.50"
+                ]
+            ],
+            "format": {
+                "border": true,
+                "cell_padding": 5,
+                "font_size": 14
+            }
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "3. Explicit Large Font (Size 24)",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "header": "Item",
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "header": "Price",
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    "Apple",
+                    "$1.00"
+                ],
+                [
+                    "Banana",
+                    "$0.50"
+                ]
+            ],
+            "format": {
+                "border": true,
+                "cell_padding": 5,
+                "font_size": 24
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 2
+        }
+    ]
+}

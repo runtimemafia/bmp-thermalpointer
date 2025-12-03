@@ -9,6 +9,7 @@ extern const BlockVTable qr_block_vtable;
 extern const BlockVTable image_block_vtable;
 extern const BlockVTable feed_block_vtable;
 extern const BlockVTable hr_block_vtable;
+extern const BlockVTable table_block_vtable;
 
 #define MAX_BLOCK_TYPES 10
 static const BlockVTable *registry[MAX_BLOCK_TYPES];
@@ -27,6 +28,7 @@ void block_manager_init() {
   block_manager_register(&image_block_vtable);
   block_manager_register(&feed_block_vtable);
   block_manager_register(&hr_block_vtable);
+  block_manager_register(&table_block_vtable);
 }
 
 static const BlockVTable *find_vtable(const char *type) {
