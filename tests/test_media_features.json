@@ -1,0 +1,309 @@
+{
+    "blocks": [
+        {
+            "type": "text",
+            "content": "=== Comprehensive Media Test ===",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 32,
+                "bottom_padding": 20
+            }
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "1. QR Code Sizes",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 2 (Small)",
+            "format": {
+                "font_size": 18,
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Size 2",
+            "format": {
+                "size": 2,
+                "x_pos": 0
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 4 (Medium)",
+            "format": {
+                "font_size": 18,
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Size 4",
+            "format": {
+                "size": 4,
+                "x_pos": 0
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 6 (Large)",
+            "format": {
+                "font_size": 18,
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Size 6",
+            "format": {
+                "size": 6,
+                "x_pos": 0
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 8 (Extra Large)",
+            "format": {
+                "font_size": 18,
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Size 8",
+            "format": {
+                "size": 8,
+                "x_pos": 0
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "2. QR Code Alignment",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Left Aligned (x_pos: -1)",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Left",
+            "format": {
+                "size": 3,
+                "x_pos": -1
+            }
+        },
+        {
+            "type": "text",
+            "content": "Center Aligned (x_pos: 0)",
+            "format": {
+                "font_size": 18,
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Center",
+            "format": {
+                "size": 3,
+                "x_pos": 0
+            }
+        },
+        {
+            "type": "text",
+            "content": "Right Aligned (x_pos: 1)",
+            "format": {
+                "font_size": 18,
+                "alignment": "right"
+            }
+        },
+        {
+            "type": "qr",
+            "content": "Right",
+            "format": {
+                "size": 3,
+                "x_pos": 1
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "3. Image Scaling",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Scale 1 (Original)",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/parrot.png",
+            "format": {
+                "scale": 1,
+                "x_pos": -1
+            }
+        },
+        {
+            "type": "text",
+            "content": "Scale 2 (Double)",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/parrot.png",
+            "format": {
+                "scale": 2,
+                "x_pos": -1
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "4. Image Alignment",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Left Aligned",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/bmp.png",
+            "format": {
+                "scale": 1,
+                "x_pos": -1
+            }
+        },
+        {
+            "type": "text",
+            "content": "Center Aligned",
+            "format": {
+                "font_size": 18,
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/bmp.png",
+            "format": {
+                "scale": 1,
+                "x_pos": 0
+            }
+        },
+        {
+            "type": "text",
+            "content": "Right Aligned",
+            "format": {
+                "font_size": 18,
+                "alignment": "right"
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/bmp.png",
+            "format": {
+                "scale": 1,
+                "x_pos": 1
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "5. Image Resize (Width/Height Override)",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Forced 50x50",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/parrot.png",
+            "format": {
+                "width": 50,
+                "height": 50,
+                "x_pos": -1
+            }
+        },
+        {
+            "type": "text",
+            "content": "Forced 150x50 (Distorted)",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "image",
+            "path": "assets/parrot.png",
+            "format": {
+                "width": 150,
+                "height": 50,
+                "x_pos": -1
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 3
+        }
+    ]
+}

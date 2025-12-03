@@ -1,0 +1,134 @@
+{
+    "blocks": [
+        {
+            "type": "text",
+            "content": "=== Comprehensive Malayalam Text Test ===",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 32,
+                "bottom_padding": 20
+            }
+        },
+        {
+            "type": "text",
+            "content": "1. Font Size Variations (Left Aligned)",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 18: നമസ്കാരം (Namaskaram)",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 24: നമസ്കാരം (Namaskaram)",
+            "format": {
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 32: നമസ്കാരം (Namaskaram)",
+            "format": {
+                "font_size": 32
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 40: നമസ്കാരം",
+            "format": {
+                "font_size": 40
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "2. Font Weight Variations",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Normal: കേരളം ദൈവത്തിന്റെ സ്വന്തം നാട്",
+            "format": {
+                "font_weight": "normal",
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Bold: കേരളം ദൈവത്തിന്റെ സ്വന്തം നാട്",
+            "format": {
+                "font_weight": "bold",
+                "font_size": 24
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "3. Alignment Tests",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "ഇടത് (Left)",
+            "format": {
+                "alignment": "left"
+            }
+        },
+        {
+            "type": "text",
+            "content": "മധ്യം (Center)",
+            "format": {
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "text",
+            "content": "വലത് (Right)",
+            "format": {
+                "alignment": "right"
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "4. Long Text Wrapping",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "മലയാളം ഇന്ത്യയിലെ കേരള സംസ്ഥാനത്തിലെ പ്രധാന ഭാഷയാണ്. ഇത് ദ്രാവിഡ ഭാഷാ കുടുംബത്തിൽ പെടുന്നു. (This is a long sentence in Malayalam to test wrapping.)",
+            "format": {
+                "font_size": 24
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 3
+        }
+    ]
+}

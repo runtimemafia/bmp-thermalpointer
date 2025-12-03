@@ -13,12 +13,15 @@ endif
 
 TARGET = poc_printer
 SOURCES = src/main.c \
-          src/qr_utils.c \
-          src/text_utils.c \
+          src/block_manager.c \
+          src/blocks/text_block.c \
+          src/blocks/qr_block.c \
+          src/blocks/image_block.c \
+          src/blocks/feed_block.c \
+          src/blocks/hr_block.c \
           src/bitmap_utils.c \
           src/escpos_utils.c \
           src/printer_comm.c \
-          src/json_utils.c \
           src/image_utils.c
 OBJECTS = $(SOURCES:.c=.o)
 

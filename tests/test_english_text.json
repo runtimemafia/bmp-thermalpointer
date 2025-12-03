@@ -1,0 +1,216 @@
+{
+    "blocks": [
+        {
+            "type": "text",
+            "content": "=== Comprehensive English Text Test ===",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 32,
+                "bottom_padding": 20
+            }
+        },
+        {
+            "type": "text",
+            "content": "1. Font Size Variations (Left Aligned)",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 18: The quick brown fox jumps over the lazy dog.",
+            "format": {
+                "font_size": 18
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 24: The quick brown fox jumps over the lazy dog.",
+            "format": {
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 32: The quick brown fox jumps over the lazy dog.",
+            "format": {
+                "font_size": 32
+            }
+        },
+        {
+            "type": "text",
+            "content": "Size 40: The quick brown fox.",
+            "format": {
+                "font_size": 40
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "2. Font Weight Variations",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Normal Weight (Size 24)",
+            "format": {
+                "font_weight": "normal",
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Bold Weight (Size 24)",
+            "format": {
+                "font_weight": "bold",
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Heavy Weight (Size 24)",
+            "format": {
+                "font_weight": "heavy",
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Light Weight (Size 24)",
+            "format": {
+                "font_weight": "light",
+                "font_size": 24
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "3. Alignment Tests",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "Left Aligned Text",
+            "format": {
+                "alignment": "left"
+            }
+        },
+        {
+            "type": "text",
+            "content": "Center Aligned Text",
+            "format": {
+                "alignment": "center"
+            }
+        },
+        {
+            "type": "text",
+            "content": "Right Aligned Text",
+            "format": {
+                "alignment": "right"
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "4. Padding Tests",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "No Padding",
+            "format": {
+                "left_padding": 0,
+                "right_padding": 0
+            }
+        },
+        {
+            "type": "text",
+            "content": "Left Padding 50",
+            "format": {
+                "left_padding": 50
+            }
+        },
+        {
+            "type": "text",
+            "content": "Right Padding 50 (Right Aligned)",
+            "format": {
+                "alignment": "right",
+                "right_padding": 50
+            }
+        },
+        {
+            "type": "text",
+            "content": "Left & Right Padding 50 (Center Aligned)",
+            "format": {
+                "alignment": "center",
+                "left_padding": 50,
+                "right_padding": 50
+            }
+        },
+        {
+            "type": "text",
+            "content": "Top Padding 30",
+            "format": {
+                "top_padding": 30
+            }
+        },
+        {
+            "type": "text",
+            "content": "Bottom Padding 30",
+            "format": {
+                "bottom_padding": 30
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "5. Long Text Wrapping",
+            "format": {
+                "font_weight": "bold",
+                "bottom_padding": 10
+            }
+        },
+        {
+            "type": "text",
+            "content": "This is a very long sentence that should wrap to the next line automatically because it exceeds the width of the printer paper. It serves to test the Pango layout wrapping functionality.",
+            "format": {
+                "font_size": 24
+            }
+        },
+        {
+            "type": "text",
+            "content": "Wrapping with Indent (Left Padding 40): This is another long sentence that should wrap, but this time it has a left padding applied to it.",
+            "format": {
+                "font_size": 24,
+                "left_padding": 40
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 3
+        }
+    ]
+}

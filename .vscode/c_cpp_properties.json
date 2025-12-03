@@ -1,0 +1,30 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/include",
+                "/usr/include/pango-1.0",
+                "/usr/include/libmount",
+                "/usr/include/blkid",
+                "/usr/include/fribidi",
+                "/usr/include/harfbuzz",
+                "/usr/include/glib-2.0",
+                "/usr/lib/glib-2.0/include",
+                "/usr/include/sysprof-6",
+                "/usr/include/cairo",
+                "/usr/include/freetype2",
+                "/usr/include/libpng16",
+                "/usr/include/pixman-1",
+                "/usr/include/json-c"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
