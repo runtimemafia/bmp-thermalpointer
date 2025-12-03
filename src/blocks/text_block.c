@@ -16,16 +16,6 @@ typedef struct {
   TextFormat format;
 } TextBlockData;
 
-void init_default_text_format(TextFormat *format) {
-  format->font_size = DEFAULT_FONT_SIZE;
-  strcpy(format->font_weight, DEFAULT_FONT_WEIGHT);
-  strcpy(format->alignment, "left");
-  format->top_padding = 0;
-  format->bottom_padding = 0;
-  format->left_padding = 0;
-  format->right_padding = 0;
-}
-
 static void *text_block_parse(json_object *json) {
   TextBlockData *data = malloc(sizeof(TextBlockData));
   if (!data)

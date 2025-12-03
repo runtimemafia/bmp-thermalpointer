@@ -23,7 +23,8 @@ SOURCES = src/main.c \
           src/bitmap_utils.c \
           src/escpos_utils.c \
           src/printer_comm.c \
-          src/image_utils.c
+          src/image_utils.c \
+          src/printer_utils.c
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(TARGET)

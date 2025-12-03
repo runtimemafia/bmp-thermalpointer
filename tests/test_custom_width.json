@@ -1,0 +1,50 @@
+{
+    "width": 576,
+    "blocks": [
+        {
+            "type": "text",
+            "content": "Custom Width Test (576 dots)",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 32,
+                "bottom_padding": 20
+            }
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "text",
+            "content": "This text should span across a wider area than the default 384 dots. The horizontal rule above should also be wider.",
+            "format": {
+                "font_size": 24
+            }
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "header": "Left",
+                    "width": "50%",
+                    "align": "left"
+                },
+                {
+                    "header": "Right",
+                    "width": "50%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    "Wide",
+                    "Table"
+                ]
+            ],
+            "format": {
+                "border": true,
+                "font_size": 24
+            }
+        }
+    ]
+}

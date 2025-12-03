@@ -39,7 +39,7 @@ static void *table_block_parse(json_object *json) {
   // Defaults
   data->format.cell_padding = 5;
   strcpy(data->format.header_font_weight, "bold");
-  data->format.font_size = 18;
+  data->format.font_size = get_default_font_size();
 
   // Parse columns
   json_object *columns_arr;

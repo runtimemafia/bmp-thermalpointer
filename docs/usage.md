@@ -75,10 +75,12 @@ The engine is a command-line tool. It accepts a JSON input and an optional print
 
 ## 3. JSON Format Reference
 
-The input must be a valid JSON object with a root key `"blocks"`, which is an array of Block Objects.
+The input must be a valid JSON object with a root key `"blocks"`, which is an array of Block Objects. You can optionally specify the `"width"` of the printer in dots (default is 384) and a global `"font_size"`.
 
 ```json
 {
+  "width": 384,
+  "font_size": 24,
   "blocks": [
     { ... block 1 ... },
     { ... block 2 ... }
@@ -86,7 +88,14 @@ The input must be a valid JSON object with a root key `"blocks"`, which is an ar
 }
 ```
 
-### 3.1. Common Properties
+### 3.1. Root Properties
+| Property | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `blocks` | array | **Required** | List of content blocks to print. |
+| `width` | integer | `384` | Printer width in dots (e.g., 384 for 58mm, 576 for 80mm). |
+| `font_size` | integer | `24` | Global default font size for text blocks. |
+
+### 3.2. Common Properties
 All blocks support the `type` property. Other properties depend on the type.
 
 ### 3.2. Block Type: `text`

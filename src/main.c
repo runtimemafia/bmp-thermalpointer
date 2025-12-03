@@ -66,6 +66,22 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  // Determine printer width and global font size
+  int printer_width = PRINTER_WIDTH_DOTS;
+  json_object *width_obj;
+  if (json_object_object_get_ex(root, "width", &width_obj)) {
+    if (json_object_is_type(width_obj, json_type_int)) {
+      printer_width = json_object_get_int(width_obj);
+    }
+  }
+
+  json_object *font_size_obj;
+  if (json_object_object_get_ex(root, "font_size", &font_size_obj)) {
+    if (json_object_is_type(font_size_obj, json_type_int)) {
+      set_default_font_size(json_object_get_int(font_size_obj));
+    }
+  }
+
   // Parse blocks
   Block *blocks = block_manager_parse(blocks_array);
   if (!blocks) {
@@ -77,14 +93,14 @@ int main(int argc, char *argv[]) {
   }
 
   // Calculate total height
-  int total_height = block_manager_calculate_height(blocks, PRINTER_WIDTH_DOTS);
+  int total_height = block_manager_calculate_height(blocks, printer_width);
   // Add top/bottom padding if needed (previously TOP_PADDING and BOTTOM_PADDING
   // were used)
   total_height += TOP_PADDING + BOTTOM_PADDING;
 
   // Create Cairo surface
   cairo_surface_t *surface = cairo_image_surface_create(
-      CAIRO_FORMAT_ARGB32, PRINTER_WIDTH_DOTS, total_height);
+      CAIRO_FORMAT_ARGB32, printer_width, total_height);
   cairo_t *cr = cairo_create(surface);
 
   // Fill background as white
@@ -94,21 +110,7 @@ int main(int argc, char *argv[]) {
                      // own or use the one passed
 
   // Render blocks
-  // We need to handle the initial offset (TOP_PADDING) if the manager starts at
-  // 0 But wait, my block_manager_render starts at 0. I should probably pass the
-  // surface to block_manager_render and let it handle it. But I need to respect
-  // TOP_PADDING. I can translate the surface or just assume manager handles
-  // 0-based and I paste it? Or I can modify block_manager_render to accept a
-  // start Y. For now, let's assume I can just render to the surface. If I want
-  // TOP_PADDING, I should probably have added a spacer block or handled it in
-  // manager. Let's just render.
-
-  // Actually, I can create a sub-surface or just translate the context if I
-  // passed a context. But block_manager_render creates its own context. Let's
-  // modify block_manager_render to take an offset? Or just rely on the fact
-  // that TOP_PADDING is 0 in the header :) "define TOP_PADDING 0"
-
-  block_manager_render(blocks, surface, PRINTER_WIDTH_DOTS);
+  block_manager_render(blocks, surface, printer_width);
 
   // Convert to 1-bit bitmap
   int width, height, bmp_size;
