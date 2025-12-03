@@ -1,0 +1,74 @@
+{
+    "width": 384,
+    "font_size": 18,
+    "blocks": [
+        {
+            "type": "text",
+            "content": "Per-Cell Formatting Test",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "bottom_padding": 20
+            }
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "header": "Item",
+                    "width": "50%",
+                    "align": "left"
+                },
+                {
+                    "header": "Price",
+                    "width": "50%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    "Standard Item",
+                    "10.00"
+                ],
+                [
+                    {
+                        "content": "Big Bold Item",
+                        "format": {
+                            "font_size": 24,
+                            "font_weight": "bold"
+                        }
+                    },
+                    {
+                        "content": "20.00",
+                        "format": {
+                            "font_size": 24,
+                            "font_weight": "bold"
+                        }
+                    }
+                ],
+                [
+                    {
+                        "content": "Centered Item",
+                        "format": {
+                            "align": "center"
+                        }
+                    },
+                    "30.00"
+                ],
+                [
+                    "Small Item",
+                    {
+                        "content": "40.00",
+                        "format": {
+                            "font_size": 12
+                        }
+                    }
+                ]
+            ],
+            "format": {
+                "border": true,
+                "cell_padding": 5
+            }
+        }
+    ]
+}

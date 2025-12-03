@@ -115,7 +115,12 @@
             ],
             "rows": [
                 [
-                    "Special Entry Ticket",
+                    {
+                        "content": "Special Entry Ticket",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    },
                     "500.00"
                 ],
                 [
@@ -150,8 +155,18 @@
             ],
             "rows": [
                 [
-                    "Total:",
-                    "650.00"
+                    {
+                        "content": "Total:",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    },
+                    {
+                        "content": "650.00",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    }
                 ]
             ],
             "format": {

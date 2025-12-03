@@ -12,9 +12,18 @@ typedef struct {
 } TableColumn;
 
 typedef struct {
+  char *content;
+  struct {
+    int font_size;        // 0 means inherit
+    char font_weight[32]; // empty means inherit
+    char align[16];       // empty means inherit
+  } format;
+} TableCell;
+
+typedef struct {
   TableColumn *columns;
   int column_count;
-  char ***rows; // Array of rows, each row is array of strings
+  TableCell **rows; // Array of rows, each row is array of TableCell
   int row_count;
   struct {
     struct {
@@ -79,7 +88,7 @@ static void *table_block_parse(json_object *json) {
       json_object_is_type(rows_arr, json_type_array)) {
 
     data->row_count = json_object_array_length(rows_arr);
-    data->rows = calloc(data->row_count, sizeof(char **));
+    data->rows = calloc(data->row_count, sizeof(TableCell *));
 
     for (int i = 0; i < data->row_count; i++) {
       json_object *row_arr = json_object_array_get_idx(rows_arr, i);
@@ -87,10 +96,32 @@ static void *table_block_parse(json_object *json) {
         int cols = json_object_array_length(row_arr);
         int safe_cols = (cols < data->column_count) ? cols : data->column_count;
 
-        data->rows[i] = calloc(data->column_count, sizeof(char *));
+        data->rows[i] = calloc(data->column_count, sizeof(TableCell));
         for (int j = 0; j < safe_cols; j++) {
-          json_object *cell = json_object_array_get_idx(row_arr, j);
-          data->rows[i][j] = strdup(json_object_get_string(cell));
+          json_object *cell_obj = json_object_array_get_idx(row_arr, j);
+
+          if (json_object_is_type(cell_obj, json_type_string)) {
+            // Legacy string format
+            data->rows[i][j].content = strdup(json_object_get_string(cell_obj));
+          } else if (json_object_is_type(cell_obj, json_type_object)) {
+            // New object format
+            json_object *val;
+            if (json_object_object_get_ex(cell_obj, "content", &val)) {
+              data->rows[i][j].content = strdup(json_object_get_string(val));
+            }
+
+            if (json_object_object_get_ex(cell_obj, "format", &val)) {
+              json_object *f_val;
+              if (json_object_object_get_ex(val, "font_size", &f_val))
+                data->rows[i][j].format.font_size = json_object_get_int(f_val);
+              if (json_object_object_get_ex(val, "font_weight", &f_val))
+                strncpy(data->rows[i][j].format.font_weight,
+                        json_object_get_string(f_val), 31);
+              if (json_object_object_get_ex(val, "align", &f_val))
+                strncpy(data->rows[i][j].format.align,
+                        json_object_get_string(f_val), 15);
+            }
+          }
         }
       }
     }
@@ -206,11 +237,20 @@ static int table_block_calculate_height(void *ptr, int width) {
     int max_row_h = 0;
     if (data->rows[r]) {
       for (int c = 0; c < data->column_count; c++) {
-        if (data->rows[r][c]) {
-          int h = calculate_cell_height(
-              cr, data->rows[r][c],
-              col_widths[c] - (2 * data->format.cell_padding),
-              DEFAULT_FONT_WEIGHT, data->format.font_size);
+        if (data->rows[r][c].content) {
+          // Determine font size and weight for this cell
+          int font_size = data->rows[r][c].format.font_size;
+          if (font_size == 0)
+            font_size = data->format.font_size;
+
+          const char *font_weight = data->rows[r][c].format.font_weight;
+          if (font_weight[0] == '\0')
+            font_weight = DEFAULT_FONT_WEIGHT;
+
+          int h = calculate_cell_height(cr, data->rows[r][c].content,
+                                        col_widths[c] -
+                                            (2 * data->format.cell_padding),
+                                        font_weight, font_size);
           if (h > max_row_h)
             max_row_h = h;
         }
@@ -335,11 +375,20 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
     int max_row_h = 0;
     if (data->rows[r]) {
       for (int c = 0; c < data->column_count; c++) {
-        if (data->rows[r][c]) {
-          int h = calculate_cell_height(
-              ctx->cr, data->rows[r][c],
-              col_widths[c] - (2 * data->format.cell_padding),
-              DEFAULT_FONT_WEIGHT, data->format.font_size);
+        if (data->rows[r][c].content) {
+          // Determine font size and weight for this cell
+          int font_size = data->rows[r][c].format.font_size;
+          if (font_size == 0)
+            font_size = data->format.font_size;
+
+          const char *font_weight = data->rows[r][c].format.font_weight;
+          if (font_weight[0] == '\0')
+            font_weight = DEFAULT_FONT_WEIGHT;
+
+          int h = calculate_cell_height(ctx->cr, data->rows[r][c].content,
+                                        col_widths[c] -
+                                            (2 * data->format.cell_padding),
+                                        font_weight, font_size);
           if (h > max_row_h)
             max_row_h = h;
         }
@@ -350,10 +399,23 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
       int row_height = max_row_h + (2 * data->format.cell_padding);
       int x = current_x;
       for (int c = 0; c < data->column_count; c++) {
-        if (data->rows[r] && data->rows[r][c]) {
-          render_cell(ctx->cr, data->rows[r][c], x, current_y, col_widths[c],
-                      data->columns[c].align, DEFAULT_FONT_WEIGHT,
-                      data->format.font_size, data->format.cell_padding);
+        if (data->rows[r] && data->rows[r][c].content) {
+          // Determine font size, weight, and align for this cell
+          int font_size = data->rows[r][c].format.font_size;
+          if (font_size == 0)
+            font_size = data->format.font_size;
+
+          const char *font_weight = data->rows[r][c].format.font_weight;
+          if (font_weight[0] == '\0')
+            font_weight = DEFAULT_FONT_WEIGHT;
+
+          const char *align = data->rows[r][c].format.align;
+          if (align[0] == '\0')
+            align = data->columns[c].align;
+
+          render_cell(ctx->cr, data->rows[r][c].content, x, current_y,
+                      col_widths[c], align, font_weight, font_size,
+                      data->format.cell_padding);
         }
 
         // Left border
@@ -410,7 +472,8 @@ static void table_block_destroy(void *ptr) {
     for (int i = 0; i < data->row_count; i++) {
       if (data->rows[i]) {
         for (int j = 0; j < data->column_count; j++) {
-          free(data->rows[i][j]);
+          // Free cell content
+          free(data->rows[i][j].content);
         }
         free(data->rows[i]);
       }
