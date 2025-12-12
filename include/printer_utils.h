@@ -48,6 +48,7 @@ typedef struct {
   int bottom_padding;
   int left_padding;
   int right_padding;
+  float line_spacing; // 0.0 means default (usually 1.0)
 } TextFormat;
 
 // Structure to hold QR formatting options

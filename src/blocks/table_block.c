@@ -17,6 +17,8 @@ typedef struct {
     int font_size;        // 0 means inherit
     char font_weight[32]; // empty means inherit
     char align[16];       // empty means inherit
+    int cell_padding;     // -1 means inherit
+    float line_spacing;   // 0.0 means inherit
   } format;
 } TableCell;
 
@@ -98,6 +100,10 @@ static void *table_block_parse(json_object *json) {
 
         data->rows[i] = calloc(data->column_count, sizeof(TableCell));
         for (int j = 0; j < safe_cols; j++) {
+          // Initialize defaults
+          data->rows[i][j].format.cell_padding = -1;
+          data->rows[i][j].format.line_spacing = 0.0;
+
           json_object *cell_obj = json_object_array_get_idx(row_arr, j);
 
           if (json_object_is_type(cell_obj, json_type_string)) {
@@ -120,6 +126,17 @@ static void *table_block_parse(json_object *json) {
               if (json_object_object_get_ex(val, "align", &f_val))
                 strncpy(data->rows[i][j].format.align,
                         json_object_get_string(f_val), 15);
+              if (json_object_object_get_ex(val, "cell_padding", &f_val))
+                data->rows[i][j].format.cell_padding =
+                    json_object_get_int(f_val);
+              if (json_object_object_get_ex(val, "line_spacing", &f_val)) {
+                if (json_object_is_type(f_val, json_type_double))
+                  data->rows[i][j].format.line_spacing =
+                      (float)json_object_get_double(f_val);
+                else if (json_object_is_type(f_val, json_type_int))
+                  data->rows[i][j].format.line_spacing =
+                      (float)json_object_get_int(f_val);
+              }
             }
           }
         }
@@ -181,7 +198,8 @@ static int parse_width(const char *width_str, int total_width) {
 }
 
 static int calculate_cell_height(cairo_t *cr, const char *text, int width,
-                                 const char *font_weight, int font_size) {
+                                 const char *font_weight, int font_size,
+                                 float line_spacing) {
   if (!text)
     return 0;
   PangoLayout *layout = pango_cairo_create_layout(cr);
@@ -192,6 +210,9 @@ static int calculate_cell_height(cairo_t *cr, const char *text, int width,
       pango_font_description_from_string(font_string);
   pango_layout_set_font_description(layout, font_desc);
   pango_layout_set_text(layout, text, -1);
+  if (line_spacing > 0.0) {
+    pango_layout_set_line_spacing(layout, line_spacing);
+  }
   pango_layout_set_width(layout, width * PANGO_SCALE);
   pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
   int w, h;
@@ -201,75 +222,9 @@ static int calculate_cell_height(cairo_t *cr, const char *text, int width,
   return h;
 }
 
-static int table_block_calculate_height(void *ptr, int width) {
-  TableBlockData *data = (TableBlockData *)ptr;
-  if (!data)
-    return 0;
-
-  cairo_surface_t *surface =
-      cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, 10);
-  cairo_t *cr = cairo_create(surface);
-
-  int total_height = 0;
-  int usable_width = width - (2 * SIDE_MARGIN);
-  int *col_widths = calloc(data->column_count, sizeof(int));
-
-  for (int i = 0; i < data->column_count; i++) {
-    col_widths[i] = parse_width(data->columns[i].width_str, usable_width);
-  }
-
-  int max_header_h = 0;
-  for (int i = 0; i < data->column_count; i++) {
-    if (data->columns[i].header) {
-      int h = calculate_cell_height(
-          cr, data->columns[i].header,
-          col_widths[i] - (2 * data->format.cell_padding),
-          data->format.header_font_weight, data->format.font_size);
-      if (h > max_header_h)
-        max_header_h = h;
-    }
-  }
-  if (max_header_h > 0) {
-    total_height += max_header_h + (2 * data->format.cell_padding);
-  }
-
-  for (int r = 0; r < data->row_count; r++) {
-    int max_row_h = 0;
-    if (data->rows[r]) {
-      for (int c = 0; c < data->column_count; c++) {
-        if (data->rows[r][c].content) {
-          // Determine font size and weight for this cell
-          int font_size = data->rows[r][c].format.font_size;
-          if (font_size == 0)
-            font_size = data->format.font_size;
-
-          const char *font_weight = data->rows[r][c].format.font_weight;
-          if (font_weight[0] == '\0')
-            font_weight = DEFAULT_FONT_WEIGHT;
-
-          int h = calculate_cell_height(cr, data->rows[r][c].content,
-                                        col_widths[c] -
-                                            (2 * data->format.cell_padding),
-                                        font_weight, font_size);
-          if (h > max_row_h)
-            max_row_h = h;
-        }
-      }
-    }
-    if (max_row_h > 0) {
-      total_height += max_row_h + (2 * data->format.cell_padding);
-    }
-  }
-
-  free(col_widths);
-  cairo_destroy(cr);
-  cairo_surface_destroy(surface);
-  return total_height;
-}
-
 static void render_cell(cairo_t *cr, const char *text, int x, int y, int w,
                         const char *align, const char *weight, int font_size,
-                        int padding) {
+                        int padding, float line_spacing) {
   if (!text)
     return;
   PangoLayout *layout = pango_cairo_create_layout(cr);
@@ -280,6 +235,9 @@ static void render_cell(cairo_t *cr, const char *text, int x, int y, int w,
       pango_font_description_from_string(font_string);
   pango_layout_set_font_description(layout, font_desc);
   pango_layout_set_text(layout, text, -1);
+  if (line_spacing > 0.0) {
+    pango_layout_set_line_spacing(layout, line_spacing);
+  }
   pango_layout_set_width(layout, (w - 2 * padding) * PANGO_SCALE);
   pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
   PangoAlignment pango_align = PANGO_ALIGN_LEFT;
@@ -299,6 +257,83 @@ static void draw_line(cairo_t *cr, int x1, int y1, int x2, int y2) {
   cairo_move_to(cr, x1, y1);
   cairo_line_to(cr, x2, y2);
   cairo_stroke(cr);
+}
+
+static int table_block_calculate_height(void *ptr, int width) {
+  TableBlockData *data = (TableBlockData *)ptr;
+  if (!data)
+    return 0;
+
+  int total_height = 0;
+  int usable_width = width - (2 * SIDE_MARGIN);
+
+  // Create a dummy surface and context for height calculation
+  // This is necessary because PangoLayout needs a cairo_t, but we don't want
+  // to draw anything yet.
+  cairo_surface_t *surface =
+      cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 1, 1);
+  cairo_t *dummy_cr = cairo_create(surface);
+
+  int *col_widths = calloc(data->column_count, sizeof(int));
+  for (int i = 0; i < data->column_count; i++) {
+    col_widths[i] = parse_width(data->columns[i].width_str, usable_width);
+  }
+
+  // Calculate Header Height
+  int max_header_h = 0;
+  for (int i = 0; i < data->column_count; i++) {
+    if (data->columns[i].header) {
+      int h = calculate_cell_height(
+          dummy_cr, data->columns[i].header,
+          col_widths[i] - (2 * data->format.cell_padding),
+          data->format.header_font_weight, data->format.font_size, 0.0);
+      if (h > max_header_h)
+        max_header_h = h;
+    }
+  }
+  if (max_header_h > 0) {
+    total_height += max_header_h + (2 * data->format.cell_padding);
+  }
+
+  // Re-implementing the loop to handle variable padding correctly
+  for (int r = 0; r < data->row_count; r++) {
+    int max_total_h = 0;
+    if (data->rows[r]) {
+      for (int c = 0; c < data->column_count; c++) {
+        if (data->rows[r][c].content) {
+          int font_size = data->rows[r][c].format.font_size;
+          if (font_size == 0)
+            font_size = data->format.font_size;
+
+          const char *font_weight = data->rows[r][c].format.font_weight;
+          if (font_weight[0] == '\0')
+            font_weight = DEFAULT_FONT_WEIGHT;
+
+          int padding = data->rows[r][c].format.cell_padding;
+          if (padding == -1)
+            padding = data->format.cell_padding;
+
+          float line_spacing = data->rows[r][c].format.line_spacing;
+
+          int h = calculate_cell_height(dummy_cr, data->rows[r][c].content,
+                                        col_widths[c] - (2 * padding),
+                                        font_weight, font_size, line_spacing);
+
+          int total_h = h + (2 * padding);
+          if (total_h > max_total_h)
+            max_total_h = total_h;
+        }
+      }
+    }
+    if (max_total_h > 0) {
+      total_height += max_total_h;
+    }
+  }
+
+  free(col_widths);
+  cairo_destroy(dummy_cr);
+  cairo_surface_destroy(surface);
+  return total_height;
 }
 
 static void table_block_render(void *ptr, BlockContext *ctx) {
@@ -323,7 +358,7 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
       int h = calculate_cell_height(
           ctx->cr, data->columns[i].header,
           col_widths[i] - (2 * data->format.cell_padding),
-          data->format.header_font_weight, data->format.font_size);
+          data->format.header_font_weight, data->format.font_size, 0.0);
       if (h > max_header_h)
         max_header_h = h;
     }
@@ -342,7 +377,7 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
     for (int i = 0; i < data->column_count; i++) {
       render_cell(ctx->cr, data->columns[i].header, x, current_y, col_widths[i],
                   data->columns[i].align, data->format.header_font_weight,
-                  data->format.font_size, data->format.cell_padding);
+                  data->format.font_size, data->format.cell_padding, 0.0);
 
       // Left border for first column
       if (i == 0 && data->format.borders.left) {
@@ -372,11 +407,10 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
 
   // Render Rows
   for (int r = 0; r < data->row_count; r++) {
-    int max_row_h = 0;
+    int max_total_h = 0;
     if (data->rows[r]) {
       for (int c = 0; c < data->column_count; c++) {
         if (data->rows[r][c].content) {
-          // Determine font size and weight for this cell
           int font_size = data->rows[r][c].format.font_size;
           if (font_size == 0)
             font_size = data->format.font_size;
@@ -385,22 +419,28 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
           if (font_weight[0] == '\0')
             font_weight = DEFAULT_FONT_WEIGHT;
 
+          int padding = data->rows[r][c].format.cell_padding;
+          if (padding == -1)
+            padding = data->format.cell_padding;
+
+          float line_spacing = data->rows[r][c].format.line_spacing;
+
           int h = calculate_cell_height(ctx->cr, data->rows[r][c].content,
-                                        col_widths[c] -
-                                            (2 * data->format.cell_padding),
-                                        font_weight, font_size);
-          if (h > max_row_h)
-            max_row_h = h;
+                                        col_widths[c] - (2 * padding),
+                                        font_weight, font_size, line_spacing);
+
+          int total_h = h + (2 * padding);
+          if (total_h > max_total_h)
+            max_total_h = total_h;
         }
       }
     }
 
-    if (max_row_h > 0) {
-      int row_height = max_row_h + (2 * data->format.cell_padding);
+    if (max_total_h > 0) {
+      int row_height = max_total_h;
       int x = current_x;
       for (int c = 0; c < data->column_count; c++) {
         if (data->rows[r] && data->rows[r][c].content) {
-          // Determine font size, weight, and align for this cell
           int font_size = data->rows[r][c].format.font_size;
           if (font_size == 0)
             font_size = data->format.font_size;
@@ -413,9 +453,23 @@ static void table_block_render(void *ptr, BlockContext *ctx) {
           if (align[0] == '\0')
             align = data->columns[c].align;
 
+          int padding = data->rows[r][c].format.cell_padding;
+          if (padding == -1)
+            padding = data->format.cell_padding;
+
+          float line_spacing = data->rows[r][c].format.line_spacing;
+
+          // We need to vertically align if the cell is shorter than row_height
+          // But render_cell draws at y + padding.
+          // If we want vertical centering, we'd need more logic.
+          // For now, let's just draw at the top (y).
+          // Actually, render_cell adds padding to y.
+          // So if we pass current_y, it draws at current_y + padding.
+          // This is correct for top alignment.
+
           render_cell(ctx->cr, data->rows[r][c].content, x, current_y,
-                      col_widths[c], align, font_weight, font_size,
-                      data->format.cell_padding);
+                      col_widths[c], align, font_weight, font_size, padding,
+                      line_spacing);
         }
 
         // Left border

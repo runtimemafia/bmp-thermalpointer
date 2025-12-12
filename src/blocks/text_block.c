@@ -75,6 +75,13 @@ static void *text_block_parse(json_object *json) {
       json_object_is_type(val, json_type_int)) {
     data->format.right_padding = json_object_get_int(val);
   }
+  if (json_object_object_get_ex(target_obj, "line_spacing", &val)) {
+    if (json_object_is_type(val, json_type_double)) {
+      data->format.line_spacing = (float)json_object_get_double(val);
+    } else if (json_object_is_type(val, json_type_int)) {
+      data->format.line_spacing = (float)json_object_get_int(val);
+    }
+  }
 
   return data;
 }
@@ -99,6 +106,9 @@ static int text_block_calculate_height(void *ptr, int width) {
 
   pango_layout_set_font_description(layout, font_desc);
   pango_layout_set_text(layout, data->content, -1);
+  if (data->format.line_spacing > 0.0) {
+    pango_layout_set_line_spacing(layout, data->format.line_spacing);
+  }
 
   int text_width = width - data->format.left_padding -
                    data->format.right_padding - (2 * SIDE_MARGIN);
@@ -143,6 +153,9 @@ static void text_block_render(void *ptr, BlockContext *ctx) {
 
   pango_layout_set_font_description(layout, font_desc);
   pango_layout_set_text(layout, data->content, -1);
+  if (data->format.line_spacing > 0.0) {
+    pango_layout_set_line_spacing(layout, data->format.line_spacing);
+  }
 
   int text_width = ctx->width - data->format.left_padding -
                    data->format.right_padding - (2 * SIDE_MARGIN);

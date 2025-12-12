@@ -18,4 +18,5 @@ void init_default_text_format(TextFormat *format) {
   format->bottom_padding = 0;
   format->left_padding = 0;
   format->right_padding = 0;
+  format->line_spacing = 0.0;
 }

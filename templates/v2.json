@@ -1,0 +1,55 @@
+{
+    "width": 384,
+    "blocks": [
+        {
+            "type": "text",
+            "content": "This is a text block with default line spacing. It should look normal.",
+            "format": {
+                "font_size": 20
+            }
+        },
+        {
+            "type": "text",
+            "content": "This is a text block with 1.5 line spacing. The lines should be further apart.",
+            "format": {
+                "font_size": 20,
+                "line_spacing": 1.5
+            }
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "width": "50%"
+                },
+                {
+                    "width": "50%"
+                }
+            ],
+            "rows": [
+                [
+                    "Default Padding",
+                    {
+                        "content": "Custom Padding (20)",
+                        "format": {
+                            "cell_padding": 20
+                        }
+                    }
+                ],
+                [
+                    {
+                        "content": "Line Spacing 2.0\nSecond Line",
+                        "format": {
+                            "line_spacing": 2.0
+                        }
+                    },
+                    "Normal Spacing\nSecond Line"
+                ]
+            ],
+            "format": {
+                "cell_padding": 5,
+                "border": true
+            }
+        }
+    ]
+}

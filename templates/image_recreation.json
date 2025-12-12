@@ -6,6 +6,7 @@
       "type": "text",
       "content": "Thirupuraikkal Bhagavathy\nKshethram Vadakkanthara",
       "format": {
+        "line_spacing": 0.8,
         "alignment": "center",
         "font_weight": "bold",
         "font_size": 18,
@@ -43,6 +44,10 @@
       }
     },
     {
+        "type":"feed",
+        "lines":1
+    },
+    {
       "type": "hr"
     },
     {
@@ -72,13 +77,38 @@
             }
           }
         ],
-        ["പുഷ്പാഞ്ജലി", ""],
+        ["പുഷ്പാഞ്ജലി", ""]
+      ],
+      "format": {
+        "cell_padding": 0,
+        "font_size": 16,
+        "border": false
+      }
+    },
+    {
+        "type": "feed",
+        "lines": 1
+    },
+    {
+      "type": "table",
+      "columns": [
+        {
+          "width": "70%",
+          "align": "left"
+        },
+        {
+          "width": "30%",
+          "align": "right"
+        }
+      ],
+      "rows": [
         [
           "Shibu",
           {
             "content": "10.02.2025",
             "format": {
-              "font_size": 14
+              "font_size": 14,
+              "top_padding": 1
             }
           }
         ],
@@ -86,21 +116,21 @@
           {
             "content": "Avittam",
             "format": {
-              "font_size": 14
+              "font_size": 14,
+              "top_padding": 1
             }
           },
           ""
         ]
       ],
       "format": {
-        "cell_padding": 1,
+        "cell_padding": 0,
         "font_size": 16,
         "border": false
       }
     },
     {
-      "type": "feed",
-      "lines": 1
+        "type": "hr"
     },
     {
       "type": "table",
@@ -117,7 +147,7 @@
       "rows": [
         [
           {
-            "content": "Palpayasam (qty:500ml)",
+            "content": "Palapayasam (qty:400ml)",
             "format": {
               "font_weight": "bold"
             }
@@ -129,13 +159,38 @@
             }
           }
         ],
-        ["പാൽപായസം", ""],
+        ["പുഷ്പാഞ്ജലി", ""]
+      ],
+      "format": {
+        "cell_padding": 0,
+        "font_size": 16,
+        "border": false
+      }
+    },
+    {
+        "type": "feed",
+        "lines": 1
+    },
+    {
+      "type": "table",
+      "columns": [
+        {
+          "width": "70%",
+          "align": "left"
+        },
+        {
+          "width": "30%",
+          "align": "right"
+        }
+      ],
+      "rows": [
         [
           "Shibu",
           {
             "content": "10.02.2025",
             "format": {
-              "font_size": 14
+              "font_size": 14,
+              "top_padding": 1
             }
           }
         ],
@@ -143,21 +198,25 @@
           {
             "content": "Avittam",
             "format": {
-              "font_size": 14
+              "font_size": 14,
+              "top_padding": 1
             }
           },
           ""
         ]
       ],
       "format": {
-        "cell_padding": 2,
+        "cell_padding": 0,
         "font_size": 16,
         "border": false
       }
     },
     {
+        "type": "hr"
+    },
+    {
       "type": "feed",
-      "lines": 2
+      "lines": 1
     },
     {
       "type": "image",
@@ -170,21 +229,21 @@
       "content": "Your Trusted Online Puja booking Partner",
       "format": {
         "alignment": "center",
-        "font_size": 18,
+        "font_size": 14,
         "bottom_padding": 5
       }
+    },
+    {
+        "type": "feed",
+        "lines":1
     },
     {
       "type": "text",
       "content": "For complaints & Feedback:\ninfo.bookmypuja.app",
       "format": {
         "alignment": "center",
-        "font_size": 18
+        "font_size": 12
       }
-    },
-    {
-      "type": "feed",
-      "lines": 2
     }
   ]
 }
