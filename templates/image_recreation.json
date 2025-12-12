@@ -1,0 +1,190 @@
+{
+  "width": 384,
+  "font_size": 18,
+  "blocks": [
+    {
+      "type": "text",
+      "content": "Thirupuraikkal Bhagavathy\nKshethram Vadakkanthara",
+      "format": {
+        "alignment": "center",
+        "font_weight": "bold",
+        "font_size": 18,
+        "bottom_padding": 5,
+        "left_padding": 5,
+        "right_padding": 5
+      }
+    },
+    {
+      "type": "text",
+      "content": "Print Date: 02.10.2024 02.10.45",
+      "format": {
+        "alignment": "center",
+        "font_size": 14
+      }
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "qr",
+      "data": "BMP25VKB102",
+      "size": 5,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "BMP25VKB102",
+      "format": {
+        "alignment": "center",
+        "font_weight": "bold",
+        "font_size": 22,
+        "bottom_padding": 5
+      }
+    },
+    {
+      "type": "hr"
+    },
+    {
+      "type": "table",
+      "columns": [
+        {
+          "width": "70%",
+          "align": "left"
+        },
+        {
+          "width": "30%",
+          "align": "right"
+        }
+      ],
+      "rows": [
+        [
+          {
+            "content": "Pushpanjali (qty:1)",
+            "format": {
+              "font_weight": "bold"
+            }
+          },
+          {
+            "content": "10.00",
+            "format": {
+              "font_weight": "bold"
+            }
+          }
+        ],
+        ["പുഷ്പാഞ്ജലി", ""],
+        [
+          "Shibu",
+          {
+            "content": "10.02.2025",
+            "format": {
+              "font_size": 14
+            }
+          }
+        ],
+        [
+          {
+            "content": "Avittam",
+            "format": {
+              "font_size": 14
+            }
+          },
+          ""
+        ]
+      ],
+      "format": {
+        "cell_padding": 1,
+        "font_size": 16,
+        "border": false
+      }
+    },
+    {
+      "type": "feed",
+      "lines": 1
+    },
+    {
+      "type": "table",
+      "columns": [
+        {
+          "width": "70%",
+          "align": "left"
+        },
+        {
+          "width": "30%",
+          "align": "right"
+        }
+      ],
+      "rows": [
+        [
+          {
+            "content": "Palpayasam (qty:500ml)",
+            "format": {
+              "font_weight": "bold"
+            }
+          },
+          {
+            "content": "10.00",
+            "format": {
+              "font_weight": "bold"
+            }
+          }
+        ],
+        ["പാൽപായസം", ""],
+        [
+          "Shibu",
+          {
+            "content": "10.02.2025",
+            "format": {
+              "font_size": 14
+            }
+          }
+        ],
+        [
+          {
+            "content": "Avittam",
+            "format": {
+              "font_size": 14
+            }
+          },
+          ""
+        ]
+      ],
+      "format": {
+        "cell_padding": 2,
+        "font_size": 16,
+        "border": false
+      }
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    },
+    {
+      "type": "image",
+      "path": "assets/bmp.png",
+      "width": 250,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "Your Trusted Online Puja booking Partner",
+      "format": {
+        "alignment": "center",
+        "font_size": 18,
+        "bottom_padding": 5
+      }
+    },
+    {
+      "type": "text",
+      "content": "For complaints & Feedback:\ninfo.bookmypuja.app",
+      "format": {
+        "alignment": "center",
+        "font_size": 18
+      }
+    },
+    {
+      "type": "feed",
+      "lines": 2
+    }
+  ]
+}
