@@ -1,0 +1,9 @@
+{
+    "cut": "partial",
+    "blocks": [
+        {
+            "type": "text",
+            "content": "Partial Cut Test"
+        }
+    ]
+}

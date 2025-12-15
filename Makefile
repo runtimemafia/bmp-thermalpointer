@@ -20,6 +20,7 @@ SOURCES = src/main.c \
           src/blocks/feed_block.c \
           src/blocks/hr_block.c \
           src/blocks/table_block.c \
+          src/blocks/cut_block.c \
           src/bitmap_utils.c \
           src/escpos_utils.c \
           src/printer_comm.c \

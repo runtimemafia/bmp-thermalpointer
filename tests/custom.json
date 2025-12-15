@@ -1,0 +1,251 @@
+{
+    "cut": "full",
+    "width": 384,
+    "font_size": 18,
+    "blocks": [
+        {
+            "type": "text",
+            "content": "Sree Pisharikavu Devaswom",
+            "format": {
+                "line_spacing": 0.8,
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 18,
+                "bottom_padding": 5,
+                "left_padding": 5,
+                "right_padding": 5
+            }
+        },
+        {
+            "type": "text",
+            "content": "Date: 15/12/2025 05:23 PM",
+            "format": {
+                "alignment": "center",
+                "font_size": 14,
+                "font_weight": "medium"
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "qr",
+            "data": "25SPD175:4b3a",
+            "size": 5,
+            "align": "center"
+        },
+        {
+            "type": "text",
+            "content": "BMP25SPD175",
+            "format": {
+                "alignment": "center",
+                "font_weight": "bold",
+                "font_size": 22,
+                "bottom_padding": 5
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    {
+                        "content": "Cheriya Guruthy (qty:1)",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    },
+                    {
+                        "content": "₹120",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    }
+                ]
+            ],
+            "format": {
+                "cell_padding": 0,
+                "font_size": 16,
+                "border": false
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    {
+                        "content": "പ്രകാശൻ (Thiruvonam), പ്രഗിൽ (Thrikketta)",
+                        "format": {
+                            "font_size": 14,
+                            "font_weight": "medium"
+                        }
+                    },
+                    {
+                        "content": "16/12/2025",
+                        "format": {
+                            "font_size": 14,
+                            "top_padding": 1,
+                            "font_weight": "medium"
+                        }
+                    }
+                ]
+            ],
+            "format": {
+                "cell_padding": 0,
+                "font_size": 16,
+                "border": false,
+                "font_weight": "medium"
+            }
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    {
+                        "content": "Muttarukkal (qty:1)",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    },
+                    {
+                        "content": "₹5",
+                        "format": {
+                            "font_weight": "bold"
+                        }
+                    }
+                ]
+            ],
+            "format": {
+                "cell_padding": 0,
+                "font_size": 16,
+                "border": false
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "width": "70%",
+                    "align": "left"
+                },
+                {
+                    "width": "30%",
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    {
+                        "content": "പ്രഗിൽ (Thrikketta)",
+                        "format": {
+                            "font_size": 14,
+                            "font_weight": "medium"
+                        }
+                    },
+                    {
+                        "content": "16/12/2025",
+                        "format": {
+                            "font_size": 14,
+                            "top_padding": 1,
+                            "font_weight": "medium"
+                        }
+                    }
+                ]
+            ],
+            "format": {
+                "cell_padding": 0,
+                "font_size": 16,
+                "border": false,
+                "font_weight": "medium"
+            }
+        },
+        {
+            "type": "hr"
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "image",
+            "path": "assets/bmp.png",
+            "width": 250,
+            "align": "center"
+        },
+        {
+            "type": "text",
+            "content": "Your Trusted Online Puja booking Partner",
+            "format": {
+                "alignment": "center",
+                "font_size": 14,
+                "bottom_padding": 5,
+                "font_weight": "medium"
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 1
+        },
+        {
+            "type": "text",
+            "content": "For complaints & Feedback:\ninfo.bookmypuja.app",
+            "format": {
+                "alignment": "center",
+                "font_size": 12,
+                "font_weight": "medium"
+            }
+        },
+        {
+            "type": "feed",
+            "lines": 8
+        }
+    ]
+}

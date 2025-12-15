@@ -15,10 +15,14 @@ void block_manager_init();
 Block *block_manager_parse(json_object *json_array);
 
 // Calculate the total height of a list of blocks
-int block_manager_calculate_height(Block *blocks, int width);
+// Calculate the total height of a list of blocks
+// If count is -1, assumes blocks is NULL-terminated
+int block_manager_calculate_height(Block *blocks, int width, int count);
 
 // Render a list of blocks to a surface
-void block_manager_render(Block *blocks, cairo_surface_t *surface, int width);
+// If count is -1, assumes blocks is NULL-terminated
+void block_manager_render(Block *blocks, cairo_surface_t *surface, int width,
+                          int count);
 
 // Destroy a list of blocks
 void block_list_destroy(Block *blocks);

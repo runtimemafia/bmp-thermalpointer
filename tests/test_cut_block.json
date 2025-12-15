@@ -1,0 +1,17 @@
+{
+    "cut": "partial",
+    "blocks": [
+        {
+            "type": "text",
+            "content": "Before Cut"
+        },
+        {
+            "type": "cut",
+            "mode": "full"
+        },
+        {
+            "type": "text",
+            "content": "After Cut"
+        }
+    ]
+}

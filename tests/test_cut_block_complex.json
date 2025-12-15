@@ -1,0 +1,79 @@
+{
+    "cut": "full",
+    "blocks": [
+        {
+            "type": "text",
+            "content": "Segment 1: Start",
+            "align": "center",
+            "font_size": 24
+        },
+        {
+            "type": "text",
+            "content": "This is the first segment. It should be followed by a partial cut."
+        },
+        {
+            "type": "cut",
+            "mode": "partial"
+        },
+        {
+            "type": "text",
+            "content": "Segment 2: QR Code",
+            "align": "center"
+        },
+        {
+            "type": "qr",
+            "content": "https://example.com/segment2",
+            "size": 6,
+            "align": "center"
+        },
+        {
+            "type": "cut",
+            "mode": "full"
+        },
+        {
+            "type": "text",
+            "content": "Segment 3: Table",
+            "align": "center"
+        },
+        {
+            "type": "table",
+            "columns": [
+                {
+                    "width": 50,
+                    "align": "left"
+                },
+                {
+                    "width": 50,
+                    "align": "right"
+                }
+            ],
+            "rows": [
+                [
+                    "Item A",
+                    "$10.00"
+                ],
+                [
+                    "Item B",
+                    "$20.00"
+                ],
+                [
+                    "Total",
+                    "$30.00"
+                ]
+            ]
+        },
+        {
+            "type": "cut",
+            "mode": "partial"
+        },
+        {
+            "type": "text",
+            "content": "Segment 4: Final Segment",
+            "align": "center"
+        },
+        {
+            "type": "text",
+            "content": "This segment ends with the global cut mode (FULL)."
+        }
+    ]
+}

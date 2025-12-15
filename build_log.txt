@@ -1,0 +1,49 @@
+gcc -Wall -Wextra -O2 -I./include `pkg-config --cflags pangocairo cairo libqrencode` -o poc_printer src/main.c src/block_manager.c src/blocks/text_block.c src/blocks/qr_block.c src/blocks/image_block.c src/blocks/feed_block.c src/blocks/hr_block.c src/blocks/table_block.c src/bitmap_utils.c src/escpos_utils.c src/printer_comm.c src/image_utils.c src/printer_utils.c `pkg-config --libs pangocairo cairo libqrencode` -ljson-c
+src/main.c: In function ‘main’:
+src/main.c:245:8: error: ‘escpos_cmd’ undeclared (first use in this function)
+  245 |   free(escpos_cmd);
+      |        ^~~~~~~~~~
+src/main.c:245:8: note: each undeclared identifier is reported only once for each function it appears in
+src/blocks/qr_block.c: In function ‘qr_block_calculate_height’:
+src/blocks/qr_block.c:64:53: warning: unused parameter ‘width’ [-Wunused-parameter]
+   64 | static int qr_block_calculate_height(void *ptr, int width) {
+      |                                                 ~~~~^~~~~
+src/blocks/image_block.c: In function ‘image_block_calculate_height’:
+src/blocks/image_block.c:73:56: warning: unused parameter ‘width’ [-Wunused-parameter]
+   73 | static int image_block_calculate_height(void *ptr, int width) {
+      |                                                    ~~~~^~~~~
+src/blocks/image_block.c: In function ‘image_block_render’:
+src/blocks/image_block.c:113:7: warning: unused variable ‘final_h’ [-Wunused-variable]
+  113 |   int final_h = img_h * scale;
+      |       ^~~~~~~
+src/blocks/feed_block.c: In function ‘feed_block_calculate_height’:
+src/blocks/feed_block.c:25:55: warning: unused parameter ‘width’ [-Wunused-parameter]
+   25 | static int feed_block_calculate_height(void *ptr, int width) {
+      |                                                   ~~~~^~~~~
+src/blocks/feed_block.c: In function ‘feed_block_render’:
+src/blocks/feed_block.c:32:37: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+   32 | static void feed_block_render(void *ptr, BlockContext *ctx) {
+      |                               ~~~~~~^~~
+src/blocks/feed_block.c:32:56: warning: unused parameter ‘ctx’ [-Wunused-parameter]
+   32 | static void feed_block_render(void *ptr, BlockContext *ctx) {
+      |                                          ~~~~~~~~~~~~~~^~~
+src/blocks/hr_block.c: In function ‘hr_block_parse’:
+src/blocks/hr_block.c:5:42: warning: unused parameter ‘json’ [-Wunused-parameter]
+    5 | static void *hr_block_parse(json_object *json) {
+      |                             ~~~~~~~~~~~~~^~~~
+src/blocks/hr_block.c: In function ‘hr_block_calculate_height’:
+src/blocks/hr_block.c:10:44: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+   10 | static int hr_block_calculate_height(void *ptr, int width) {
+      |                                      ~~~~~~^~~
+src/blocks/hr_block.c:10:53: warning: unused parameter ‘width’ [-Wunused-parameter]
+   10 | static int hr_block_calculate_height(void *ptr, int width) {
+      |                                                 ~~~~^~~~~
+src/blocks/hr_block.c: In function ‘hr_block_render’:
+src/blocks/hr_block.c:14:35: warning: unused parameter ‘ptr’ [-Wunused-parameter]
+   14 | static void hr_block_render(void *ptr, BlockContext *ctx) {
+      |                             ~~~~~~^~~
+src/blocks/table_block.c: In function ‘table_block_render’:
+src/blocks/table_block.c:348:7: warning: unused variable ‘table_start_y’ [-Wunused-variable]
+  348 |   int table_start_y = current_y;
+      |       ^~~~~~~~~~~~~
+make: *** [Makefile:33: poc_printer] Error 1

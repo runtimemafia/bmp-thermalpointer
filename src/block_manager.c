@@ -10,6 +10,7 @@ extern const BlockVTable image_block_vtable;
 extern const BlockVTable feed_block_vtable;
 extern const BlockVTable hr_block_vtable;
 extern const BlockVTable table_block_vtable;
+extern const BlockVTable cut_block_vtable;
 
 #define MAX_BLOCK_TYPES 10
 static const BlockVTable *registry[MAX_BLOCK_TYPES];
@@ -29,6 +30,7 @@ void block_manager_init() {
   block_manager_register(&feed_block_vtable);
   block_manager_register(&hr_block_vtable);
   block_manager_register(&table_block_vtable);
+  block_manager_register(&cut_block_vtable);
 }
 
 static const BlockVTable *find_vtable(const char *type) {
@@ -75,12 +77,12 @@ Block *block_manager_parse(json_object *json_array) {
   return blocks;
 }
 
-int block_manager_calculate_height(Block *blocks, int width) {
+int block_manager_calculate_height(Block *blocks, int width, int count) {
   if (!blocks)
     return 0;
 
   int total_height = 0;
-  for (int i = 0; blocks[i].vtable != NULL; i++) {
+  for (int i = 0; (count == -1 ? blocks[i].vtable != NULL : i < count); i++) {
     if (blocks[i].vtable->calculate_height) {
       total_height += blocks[i].vtable->calculate_height(blocks[i].data, width);
     }
@@ -88,7 +90,8 @@ int block_manager_calculate_height(Block *blocks, int width) {
   return total_height;
 }
 
-void block_manager_render(Block *blocks, cairo_surface_t *surface, int width) {
+void block_manager_render(Block *blocks, cairo_surface_t *surface, int width,
+                          int count) {
   if (!blocks || !surface)
     return;
 
@@ -98,41 +101,11 @@ void block_manager_render(Block *blocks, cairo_surface_t *surface, int width) {
   ctx.surface = surface;
   ctx.cr = cr;
   ctx.width = width;
-  ctx.current_y =
-      0; // Start at 0, render functions should add padding if needed or manager
-         // handles it? The previous logic had TOP_PADDING. Let's assume the
-         // manager handles global padding or the blocks handle their own
-         // relative positioning. Let's initialize with 0 and let blocks
-         // increment. Wait, render functions usually draw at (x, y). The
-         // interface says `render(data, ctx)`. The ctx has `current_y`. The
-         // block should draw at `current_y` and NOT update it? Or should the
-         // block update it? The `calculate_height` returns the height. So the
-         // manager should probably manage `current_y`.
+  ctx.current_y = 0;
 
-  // Let's check the interface again.
-  // `void (*render)(void *data, BlockContext *ctx);`
-  // If the block draws, it needs to know where. `ctx->current_y`.
-  // Does it update `ctx->current_y`?
-  // If I want to support side-by-side blocks later, maybe not.
-  // But for this vertical stack, it's easier if the loop manages Y.
+  int current_y = 0;
 
-  // Let's assume the loop manages Y based on calculate_height.
-  // OR, we pass `current_y` in ctx, and the block just reads it.
-
-  // Re-reading `json_utils.c`:
-  // `current_y += text_height + extra_padding;`
-  // So the previous logic calculated height AND padding.
-
-  // Let's make `calculate_height` return the FULL vertical space consumed by
-  // the block.
-
-  int current_y = 0; // Or TOP_PADDING if we want global padding
-
-  // Add global top padding if defined in printer_utils.h, but I don't have
-  // access to it here easily without including it. Let's define it here or
-  // assume 0 for now. The previous code had `TOP_PADDING 0`.
-
-  for (int i = 0; blocks[i].vtable != NULL; i++) {
+  for (int i = 0; (count == -1 ? blocks[i].vtable != NULL : i < count); i++) {
     ctx.current_y = current_y;
 
     if (blocks[i].vtable->render) {

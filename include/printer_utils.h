@@ -38,6 +38,9 @@
 #define GS_SUBCMD '0'    // Raster format 0
 #define ESC_CMD_FEED 'd' // Feed n lines
 #define GS_CMD_CUT 'V'   // Paper cut
+#define CUT_MODE_FULL 0
+#define CUT_MODE_PARTIAL 1
+#define CUT_MODE_NONE 2
 
 // Structure to hold text formatting options
 typedef struct {
@@ -85,7 +88,7 @@ void render_image_to_surface_with_format(cairo_surface_t *surface, int base_y,
 unsigned char *convert_to_1bit_bmp(cairo_surface_t *surface, int *width,
                                    int *height, int *size);
 unsigned char *create_escpos_raster_command(unsigned char *bitmap_data,
-                                            int width, int height,
+                                            int width, int height, int cut_mode,
                                             int *cmd_size);
 int send_to_usb_printer(unsigned char *data, int size, const char *device_path);
 void save_to_file(unsigned char *data, int size);
